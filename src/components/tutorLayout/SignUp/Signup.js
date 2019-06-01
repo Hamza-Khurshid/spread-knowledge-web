@@ -3,7 +3,7 @@ import { MDBContainer, MDBFormInline, MDBRow, MDBCol, MDBInput, MDBBtn, MDBCard,
 import BACK_ARROW from '../../../assets/icons/left-arrow.svg';
 import { Link } from 'react-router-dom';
 import './signUpStyles.css';
-import IMG from '../../../assets/images/faizan.jpg';
+import toastr from 'toastr';
 
 class SignUp extends Component {
     state= {
@@ -45,6 +45,16 @@ class SignUp extends Component {
         if (username=="" || email=="" || password=="" || imgURL=="") {
             alert("No empty field allowed!");
         } else {
+            let user = {
+                username,
+                email,
+                password,
+                gender
+            }
+            localStorage.setItem("username", username);
+            localStorage.setItem("email", email);
+            localStorage.setItem("password", password);
+            localStorage.setItem("gender", gender);
             this.props.history.push('/TutorGetStart');
         }
     }

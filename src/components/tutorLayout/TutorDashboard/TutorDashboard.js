@@ -13,6 +13,14 @@ class TutorDashboard extends Component {
     left: false
   }
 
+  componentWillMount() {
+    let user = localStorage.getItem("username");
+    let email = localStorage.getItem("email");
+    let password = localStorage.getItem("password");
+    let gender = localStorage.getItem("gender");
+    console.log("username", user, email, password, gender);
+  }
+
   toggleDrawer = (open) => event => {
     if (
       event.type === "keydown" &&

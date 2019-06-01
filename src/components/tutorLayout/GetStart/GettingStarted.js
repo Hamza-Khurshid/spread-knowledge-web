@@ -2,12 +2,29 @@ import React from "react";
 import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBCard, MDBCardBody, MDBInput } from "mdbreact";
 import { CITIES } from '../../../constants/Constants';
 import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { addTutor } from '../../../redux/actions/TutorDataAction';
 
 class TutorGetStart extends React.Component {
 
   state = {
     formActivePanel1: 1,
     formActivePanel1Changed: false,
+    
+    tCity: 'Lahore',
+    tAddress: 'zcx',
+    tPhone: 'zc',
+    tDegreeL: 'Intermediate',
+    tDegreeT: 'zc',
+    eDegreeL: 'Matric',
+    eDegreeT: 'sdsd',
+    wttDegreeL: 'Matric',
+    wttDegreeT: 'sd',
+    subject1: 'sdsdsd',
+    subject2: 'sdsd',
+    subject3: 'sdsd',
+    fFrom: '1500',
+    fTo: '3000'
   }
 
   swapFormActive = (a) => (param) => (e) => {
@@ -25,14 +42,74 @@ class TutorGetStart extends React.Component {
   }
 
   handleSubmission = () => {
-    alert('Form submitted!');
-    this.props.history.push('/TutorDashboard')
+    let tCity = this.state.tCity;
+    let tAddress = this.state.tAddress;
+    let tPhone = this.state.tPhone;
+    let tDegreeT = this.state.tDegreeT;
+    let tDegreeL = this.state.tDegreeL;
+    let eDegreeT = this.state.eDegreeT;
+    let eDegreeL = this.state.eDegreeL;
+    let wttDegreeL = this.state.wttDegreeL;
+    let wttDegreeT = this.state.wttDegreeT;
+    let subject1 = this.state.subject1;
+    let subject2 = this.state.subject2;
+    let subject3 = this.state.subject3;
+    let fFrom = this.state.fFrom;
+    let fTo = this.state.fTo;
+    let tName = localStorage.getItem("username");
+    let tEmail = localStorage.getItem("email");
+    let tPassword = localStorage.getItem("password");
+    let tGender = localStorage.getItem("gender");
+    let imgURL = "https://i.ibb.co/1swJS3Z/daniel.jpg";
+
+    if (tCity==""||tAddress==""||tPhone==""||tDegreeL==""||tDegreeT==""||eDegreeL==""||eDegreeT==""||wttDegreeL==""||wttDegreeT==""||subject1==""||subject2==""||subject3==""||fFrom==""||fTo=="") {
+      alert("No empty field allowed!");
+    } else {
+      var tutotInfo = {
+        tName,
+        tEmail,
+        tPassword,
+        tGender,
+        imgURL,
+        tCity,
+        tAddress,
+        tPhone,
+        tDegreeT,
+        tDegreeL,
+        eDegreeL,
+        eDegreeT,
+        wttDegreeL,
+        wttDegreeT,
+        subject1,
+        subject2,
+        subject3,
+        fFrom,
+        fTo
+      }
+
+      this.props.addTutor(tutotInfo);
+      localStorage.setItem("authUser", JSON.stringify(tutotInfo));
+      console.log("=========", tutotInfo);
+      this.props.history.push('/TutorDashboard')
+    }
   }
 
   calculateAutofocus = (a) => {
     if (this.state['formActivePanel' + a + 'Changed']) {
       return true
     }
+  }
+
+  onTextChange = (name, event) => {
+    this.setState({
+      [name]: event.target.value
+    })
+  }
+
+  selectHandler = (name, event) => {
+    // let city = event.target.value;
+    this.setState({[name]: event.target.value});
+    
   }
 
   render() {
@@ -82,10 +159,15 @@ class TutorGetStart extends React.Component {
                         <div style={{ textAlign: 'left', marginLeft: 30, marginRight: 30, justifyContent: 'center', alignItems: 'center' }}>
                           <div>
                             <span style={{ marginRight: 15 }}>Select City: </span>
-                            <select class="mdb-select md-form" style={{ zoom: 1.3, border: 'none', padding: 3 }}>
+                            <select onChange={(event) => this.selectHandler("tCity", event)} class="mdb-select md-form" style={{ zoom: 1.3, border: 'none', padding: 3 }}>
+                              { this.state.tCity == "" ?
                               <option value="" disabled selected>Choose your city</option>
+                              : <option value="" disabled>Choose your city</option> }
                               {CITIES.map(item => {
                                 return (
+                                   this.state.tCity == item ?  
+                                  <option selected value={item}>{item}</option>
+                                  : 
                                   <option value={item}>{item}</option>
                                 )
                               })
@@ -96,9 +178,10 @@ class TutorGetStart extends React.Component {
                           <MDBInput
                             label="Address"
                             icon="map-marker-alt"
+                            name="tAddress"
                             autoFocus={this.calculateAutofocus(1)}
-                            value={this.state.username}
-                            onChange={(event) => this.onTextChange("username", event)}
+                            value={this.state.tAddress}
+                            onChange={(event) => this.onTextChange("tAddress", event)}
                             group
                             type="text"
                             validate
@@ -107,9 +190,10 @@ class TutorGetStart extends React.Component {
                           />
                           <MDBInput
                             label="Contact Number"
+                            name="tPhone"
                             icon="phone"
-                            value={this.state.username}
-                            onChange={(event) => this.onTextChange("username", event)}
+                            value={this.state.tPhone}
+                            onChange={(event) => this.onTextChange("tPhone", event)}
                             group
                             type="text"
                             validate
@@ -130,7 +214,7 @@ class TutorGetStart extends React.Component {
                         <div style={{ textAlign: 'left', marginLeft: 30, marginRight: 30, justifyContent: 'center', alignItems: 'center' }}>
                           <div>
                             <span style={{ marginRight: 15 }}>Select Degree: </span>
-                            <select class="mdb-select md-form" style={{ zoom: 1.3, border: 'none', padding: 3 }}>
+                            <select onChange={(event) => this.selectHandler("tDegreeL", event)} class="mdb-select md-form" style={{ zoom: 1.3, border: 'none', padding: 3 }}>
                               <option value="" disabled selected>Choose your degree level</option>
                               <option value="Primary">Primary</option>
                               <option value="Middle">Middle</option>
@@ -144,9 +228,10 @@ class TutorGetStart extends React.Component {
 
                           <MDBInput
                             label="Degree Title i.e. Software Engineering"
+                            name="tDegreeT"
                             icon="graduation-cap"
-                            value={this.state.username}
-                            onChange={(event) => this.onTextChange("username", event)}
+                            value={this.state.tDegreeT}
+                            onChange={(event) => this.onTextChange("tDegreeT", event)}
                             group
                             type="text"
                             validate
@@ -155,7 +240,7 @@ class TutorGetStart extends React.Component {
                           />
                           <div>
                             <span style={{ marginRight: 15 }}>Experience Degree: </span>
-                            <select class="mdb-select md-form" style={{ zoom: 1.3, border: 'none', padding: 3 }}>
+                            <select onChange={(event) => this.selectHandler("eDegreeL", event)} class="mdb-select md-form" style={{ zoom: 1.3, border: 'none', padding: 3 }}>
                               <option value="" disabled selected>Choose degree level</option>
                               <option value="Primary">Primary</option>
                               <option value="Middle">Middle</option>
@@ -169,9 +254,10 @@ class TutorGetStart extends React.Component {
 
                           <MDBInput
                             label="Degree Title i.e. Software Engineering"
+                            name="eDegreeT"
                             icon="graduation-cap"
-                            value={this.state.username}
-                            onChange={(event) => this.onTextChange("username", event)}
+                            value={this.state.eDegreeT}
+                            onChange={(event) => this.onTextChange("eDegreeT", event)}
                             group
                             type="text"
                             validate
@@ -195,7 +281,7 @@ class TutorGetStart extends React.Component {
                         <div style={{ textAlign: 'left', marginLeft: 30, marginRight: 30, justifyContent: 'center', alignItems: 'center' }}>
                         <div>
                             <span style={{ marginRight: 15 }}>Select Degree: </span>
-                            <select class="mdb-select md-form" style={{ zoom: 1.3, border: 'none', padding: 3 }}>
+                            <select onChange={(event) => this.selectHandler("wttDegreeL", event)} class="mdb-select md-form" style={{ zoom: 1.3, border: 'none', padding: 3 }}>
                               <option value="" disabled selected>Choose degree level</option>
                               <option value="Primary">Primary</option>
                               <option value="Middle">Middle</option>
@@ -209,9 +295,10 @@ class TutorGetStart extends React.Component {
 
                           <MDBInput
                             label="Degree Title i.e. F.Sc (Pre Engineering)"
+                            name="wttDegreeT"
                             icon="certificate"
-                            value={this.state.username}
-                            onChange={(event) => this.onTextChange("username", event)}
+                            value={this.state.wttDegreeT}
+                            onChange={(event) => this.onTextChange("wttDegreeT", event)}
                             group
                             type="text"
                             validate
@@ -222,9 +309,10 @@ class TutorGetStart extends React.Component {
                           <div style={{display: 'flex', flexDirection: 'row'}}>
                             <MDBInput
                               label="Subject 1"
+                              name="subject1"
                               icon="book"
-                              value={this.state.username}
-                              onChange={(event) => this.onTextChange("username", event)}
+                              value={this.state.subject1}
+                              onChange={(event) => this.onTextChange("subject1", event)}
                               group
                               type="text"
                               validate
@@ -233,9 +321,10 @@ class TutorGetStart extends React.Component {
                             />
                             <MDBInput
                               label="Subject 2"
+                              name="subject2"
                               icon="book"
-                              value={this.state.username}
-                              onChange={(event) => this.onTextChange("username", event)}
+                              value={this.state.subject2}
+                              onChange={(event) => this.onTextChange("subject2", event)}
                               group
                               type="text"
                               validate
@@ -244,9 +333,10 @@ class TutorGetStart extends React.Component {
                             />
                             <MDBInput
                               label="Subject 3"
+                              name="subject3"
                               icon="book"
-                              value={this.state.username}
-                              onChange={(event) => this.onTextChange("username", event)}
+                              value={this.state.subject3}
+                              onChange={(event) => this.onTextChange("subject3", event)}
                               group
                               type="text"
                               validate
@@ -254,6 +344,32 @@ class TutorGetStart extends React.Component {
                               success="right"
                             />
                           </div>  
+                          <div style={{display: 'flex', flexDirection: 'row'}}>
+                            <span>Fee range:</span>
+                            <MDBInput
+                              label="From"
+                              // icon="book"
+                              value={this.state.fFrom}
+                              onChange={(event) => this.onTextChange("fFrom", event)}
+                              group
+                              type="number"
+                              validate
+                              error="wrong"
+                              success="right"
+                            />
+                            <MDBInput
+                              label="To"
+                              // icon="book"
+                              value={this.state.fTo}
+                              onChange={(event) => this.onTextChange("fTo", event)}
+                              group
+                              style={{marginLeft: 15}}
+                              type="number"
+                              validate
+                              error="wrong"
+                              success="right"
+                            />
+                          </div>
                         </div>
                         <MDBBtn color="indigo" rounded className="float-left" onClick={this.handleNextPrevClick(1)(2)}
                           autoFocus={this.calculateAutofocus(1)}>
@@ -261,7 +377,7 @@ class TutorGetStart extends React.Component {
                     </MDBBtn>
                         <MDBBtn color="default" rounded className="float-right" onClick={this.handleSubmission}>
                           submit
-                    </MDBBtn>
+                        </MDBBtn>
                       </MDBCol>
                     )}
                   </MDBRow>
@@ -275,4 +391,4 @@ class TutorGetStart extends React.Component {
   };
 }
 
-export default withRouter(TutorGetStart);
+export default withRouter(connect(null, {addTutor})(TutorGetStart));

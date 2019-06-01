@@ -36,7 +36,7 @@ function TutorHeader(props) {
           </ListItemAvatar>
         <span alignSelf="center" style={{ marginTop: 20, marginLeft: 25 }}>
           <ListItemText
-            primary={tutor.name}
+            primary={tutor.tName}
             secondary={
               <div>
                 <React.Fragment>
@@ -47,7 +47,7 @@ function TutorHeader(props) {
                     className={classes.inline}
                     color="textPrimary"
                   >
-                    {tutor.qual}
+                    {tutor.tDegreeL+" of "+tutor.tDegreeT}
                   </Typography>
                 </React.Fragment>
                 <React.Fragment>
@@ -61,7 +61,7 @@ function TutorHeader(props) {
                     className={classes.inline}
                     color="textPrimary"
                   >
-                    {tutor.city}
+                    {tutor.tCity}
                   </Typography>
                 </React.Fragment>
               </div>

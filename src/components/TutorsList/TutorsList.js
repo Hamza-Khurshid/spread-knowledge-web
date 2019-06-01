@@ -8,86 +8,8 @@ import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 import TutorHeader from './components/TutorHeader';
-import SimpleTable from './components/TutorDetails';
-import { Grid } from '@material-ui/core';
-import HAMZA_IMG from '../../assets/images/hamza.jpg';
-import FAIZAN_IMG from '../../assets/images/faizan.jpg';
-import ADEEL_IMG from '../../assets/images/adeel.jpg';
-
-const tutors = [
-  {
-    name: 'Hamza Khurshid',
-    qual: 'BS Software Engineering',
-    city: 'Faisalabad',
-    degreeFrom: '2015',
-    degreeTo: '2017',
-    imgURL: 'https://i.ibb.co/1swJS3Z/daniel.jpg'
-  }, 
-  {
-    name: 'Faizan Mustafa',
-    qual: 'BS Software Engineering',
-    city: 'Toba Tek Singh',
-    degreeFrom: '2014',
-    degreeTo: '2016',
-    imgURL: 'https://i.ibb.co/gzkFHJ9/faiz-mustafa.jpg'
-  }, 
-  {
-    name: 'Tania Umair',
-    qual: 'BS Physics',
-    city: 'Lahore',
-    degreeFrom: '2016',
-    degreeTo: '2018',
-    imgURL: "https://i.ibb.co/Hhhr5XW/38674381-909016475952869-9216475105356414976-n-Copy.jpg"
-  },
-  {
-    name: 'Hamza Khurshid',
-    qual: 'BS Software Engineering',
-    city: 'Faisalabad',
-    degreeFrom: '2015',
-    degreeTo: '2017',
-    imgURL: 'https://i.ibb.co/1swJS3Z/daniel.jpg'
-  }, 
-  {
-    name: 'Faizan Mustafa',
-    qual: 'BS Software Engineering',
-    city: 'Toba Tek Singh',
-    degreeFrom: '2014',
-    degreeTo: '2016',
-    imgURL: 'https://i.ibb.co/gzkFHJ9/faiz-mustafa.jpg'
-  }, 
-  {
-    name: 'Touqeer Ali',
-    qual: 'BS Physics',
-    city: 'Lahore',
-    degreeFrom: '2016',
-    degreeTo: '2018',
-    imgURL: "https://i.ibb.co/Hhhr5XW/38674381-909016475952869-9216475105356414976-n-Copy.jpg"
-  },
-  {
-    name: 'Hamza Khurshid',
-    qual: 'BS Software Engineering',
-    city: 'Faisalabad',
-    degreeFrom: '2015',
-    degreeTo: '2017',
-    imgURL: 'https://i.ibb.co/1swJS3Z/daniel.jpg'
-  }, 
-  {
-    name: 'Faizan Mustafa',
-    qual: 'BS Software Engineering',
-    city: 'Toba Tek Singh',
-    degreeFrom: '2014',
-    degreeTo: '2016',
-    imgURL: 'https://i.ibb.co/gzkFHJ9/faiz-mustafa.jpg'
-  }, 
-  {
-    name: 'Touqeer Ali',
-    qual: 'BS Physics',
-    city: 'Lahore',
-    degreeFrom: '2016',
-    degreeTo: '2018',
-    imgURL: "https://i.ibb.co/Hhhr5XW/38674381-909016475952869-9216475105356414976-n-Copy.jpg"
-  }, 
-]
+import TutorDetails from './components/TutorDetails';
+import { connect } from 'react-redux';
 
 const styles = theme => ({
   root: {
@@ -116,18 +38,22 @@ const styles = theme => ({
 
 class TutorsList extends Component {
 
+  componentDidMount() {
+    console.log("===============", this.props.tutors);
+  }
+
   searchingForName = searchQuery => {
     return function(tutor) {
       return (
-        tutor.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        tutor.city.toLowerCase().includes(searchQuery.toLowerCase()) || !searchQuery
+        tutor.tName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        tutor.tCity.toLowerCase().includes(searchQuery.toLowerCase()) || !searchQuery
       );
     };
   };
 
 
   render() {
-  const { classes } = this.props;
+  const { classes, tutors } = this.props;
   return (
     <div className={classes.root}>
       { tutors.length > 0 ?
@@ -145,7 +71,7 @@ class TutorsList extends Component {
             </Typography>
           </ExpansionPanelSummary>
           <ExpansionPanelDetails>
-              <SimpleTable style={{width: '100%'}}/>
+              <TutorDetails tutor={tutor} style={{width: '100%'}}/>
           </ExpansionPanelDetails>
             <Typography className={classes.para}>
               Being a data scientist I'm responsible for data extraction, management, 
@@ -169,4 +95,10 @@ TutorsList.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(TutorsList);
+const mapStateToProps = (store) => {
+  return {
+    tutors: store.tutorDataReducer.tutors
+  } 
+}
+
+export default withStyles(styles)(connect(mapStateToProps)(TutorsList));

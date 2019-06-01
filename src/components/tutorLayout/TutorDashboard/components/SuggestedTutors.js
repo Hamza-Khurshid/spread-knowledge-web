@@ -9,37 +9,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 import TutorHeader from '../../../TutorsList/components/TutorHeader';
 import SimpleTable from '../../../TutorsList/components/TutorDetails';
-import { Grid } from '@material-ui/core';
-import HAMZA_IMG from '../../../../assets/images/hamza.jpg';
-import FAIZAN_IMG from '../../../../assets/images/faizan.jpg';
-import ADEEL_IMG from '../../../../assets/images/adeel.jpg';
-
-const tutors = [
-  {
-    name: 'Hamza Khurshid',
-    qual: 'BS Software Engineering',
-    city: 'Faisalabad',
-    degreeFrom: '2015',
-    degreeTo: '2017',
-    imgURL: 'https://i.ibb.co/1swJS3Z/daniel.jpg'
-  }, 
-  {
-    name: 'Faizan Mustafa',
-    qual: 'BS Software Engineering',
-    city: 'Toba Tek Singh',
-    degreeFrom: '2014',
-    degreeTo: '2016',
-    imgURL: 'https://i.ibb.co/gzkFHJ9/faiz-mustafa.jpg'
-  }, 
-  {
-    name: 'Tania Umair',
-    qual: 'BS Physics',
-    city: 'Lahore',
-    degreeFrom: '2016',
-    degreeTo: '2018',
-    imgURL: "https://i.ibb.co/Hhhr5XW/38674381-909016475952869-9216475105356414976-n-Copy.jpg"
-  },
-]
+import { connect } from 'react-redux';
 
 const styles = theme => ({
   root: {
@@ -78,7 +48,9 @@ class TutorsList extends Component {
 
 
   render() {
-  const { classes } = this.props;
+  const { classes,tutors } = this.props;
+  console.log(this.props.tutors);
+  
   return (
     <div className={classes.root}>
       { tutors.length > 0 ?
@@ -96,7 +68,7 @@ class TutorsList extends Component {
             </Typography>
           </ExpansionPanelSummary>
           <ExpansionPanelDetails>
-              <SimpleTable style={{width: '100%'}}/>
+              <SimpleTable tutor={tutor} style={{width: '100%'}}/>
           </ExpansionPanelDetails>
             <Typography className={classes.para}>
               Being a data scientist I'm responsible for data extraction, management, 
