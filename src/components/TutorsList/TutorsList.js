@@ -39,7 +39,7 @@ const styles = theme => ({
 class TutorsList extends Component {
 
   componentDidMount() {
-    console.log("===============", this.props.tutors);
+    console.log("======MAIN SCREEN=========", this.props.tutors);
   }
 
   searchingForName = searchQuery => {

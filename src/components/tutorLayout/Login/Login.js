@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import { MDBContainer, MDBFormInline, MDBRow, MDBCol, MDBInput, MDBBtn, MDBCard, MDBCardBody } from 'mdbreact';
 import { Link } from 'react-router-dom';
 import BACK_ARROW from '../../../assets/icons/left-arrow.svg';
+import { connect } from 'react-redux';
 
 class Login extends Component {
     state = {
@@ -9,6 +10,38 @@ class Login extends Component {
         password: '',
     }
 
+    componentWillMount() {
+        let user = localStorage.getItem("authUser");
+        if(user) {
+            this.props.history.push("/TutorDashboard");
+        }
+    }
+
+    submitHandler = (event) => {
+        event.preventDefault();
+
+        let email = this.state.email;
+        let password = this.state.password;
+
+        if(email == "" || password == "") {
+            alert("No empty field allowed!");
+        } else {
+            let tutors = this.props.tutors;
+            tutors = tutors.filter( t => t.tEmail == email && t.tPassword == password );
+            if(tutors.length > 0) {
+                localStorage.setItem("authUser", JSON.stringify(tutors[0]));
+                this.props.history.push("/TutorDashboard");
+            } else {
+                alert("Incorrect credentials!")
+            }
+        }
+    }
+
+    textChangeHandler = (name, event) => {
+        this.setState({
+            [name]: event.target.value
+        })
+    }    
 
     render() {
         return (
@@ -31,6 +64,8 @@ class Login extends Component {
                                     label="Your email"
                                     icon="envelope"
                                     group
+                                    value={this.state.email}
+                                    onChange={(event) => this.textChangeHandler("email", event)}
                                     type="email"
                                     validate
                                     error="wrong"
@@ -40,6 +75,8 @@ class Login extends Component {
                                     label="Your password"
                                     icon="lock"
                                     group
+                                    value={this.state.password}
+                                    onChange={(event) => this.textChangeHandler("password", event)}
                                     type="password"
                                     validate
                                 />
@@ -47,7 +84,7 @@ class Login extends Component {
                             </div>
                         </div>
                         <div className="text-center py-4 mt-3">
-                            <MDBBtn color="cyan" type="submit">
+                            <MDBBtn color="cyan" type="submit" onClick={this.submitHandler}>
                                 Login
                             </MDBBtn>
                             <div style={{marginTop: 10, cursor: 'pointer'}}>
@@ -64,4 +101,10 @@ class Login extends Component {
     }
 };
 
-export default Login;
+const mapStateToProps = (store) => {
+    return {
+        tutors: store.tutorDataReducer.tutors
+    }
+}
+
+export default connect(mapStateToProps)(Login);

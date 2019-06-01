@@ -14,6 +14,13 @@ class SignUp extends Component {
         imgURL: 'imgurl'
     }
 
+    componentWillMount() {
+        let user = localStorage.getItem("authUser");
+        if(user) {
+            this.props.history.push("/TutorDashboard");
+        }
+    }
+
     onClick = nr => () =>{
         this.setState({
           radio: nr

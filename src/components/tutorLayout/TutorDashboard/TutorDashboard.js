@@ -3,8 +3,10 @@ import '../../../App.css';
 import AppBar from './components/DashAppBar';
 import Drawer from '../TutorDrawer/TutorDrawer';
 import TutorProfile from './components/TutorProfile';
+import { connect } from 'react-redux';
 
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import TuitionRequest from '../../myComponents/TuitionRequest';
 
 
 class TutorDashboard extends Component {
@@ -38,11 +40,14 @@ class TutorDashboard extends Component {
     })
   }
 
-  render() {    
+  render() { 
+    let tutor = localStorage.getItem("authUser");
+    tutor = JSON.parse(tutor);   
   return (
     <div className="App">
         <AppBar toggleDrawer={this.toggleDrawer} />
-        <TutorProfile />
+        <TuitionRequest tutor={tutor}/>
+        <TutorProfile tutors={this.props.tutors} />
         <Drawer toggleDrawer={this.toggleDrawer} state={this.state.left} />
 
 
@@ -55,4 +60,10 @@ class TutorDashboard extends Component {
 }
 }
 
-export default TutorDashboard;
+const mapStateToProps = (store) => {
+    return {
+      tutors: store.tutorDataReducer.tutors
+    } 
+  }
+
+export default connect(mapStateToProps)(TutorDashboard);

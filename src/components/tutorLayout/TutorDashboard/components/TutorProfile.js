@@ -8,7 +8,6 @@ import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";
 import SearchAppBar from './AppBar';
 import TutorsList from "./SuggestedTutors";
-import { connect } from 'react-redux';
 
 const useStyles = makeStyles(theme => ({
     typright: {
@@ -136,12 +135,4 @@ const CardExample = (props) => {
     );
 }
 
-
-
-const mapStateToProps = (store) => {
-    return {
-      tutors: store.tutorDataReducer.tutors
-    } 
-  }
-
-export default connect(mapStateToProps)(CardExample);
+export default CardExample;
