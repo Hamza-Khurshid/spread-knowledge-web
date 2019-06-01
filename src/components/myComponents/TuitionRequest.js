@@ -58,11 +58,11 @@ function sendProposalHandler() {
 
 function TuitionRequest(props) {
     const classes = useStyles();
-    let tutor = props.tutor;
+    let tuition = props.tuition;
 
     return (
         <div className={classes.root}>
-            <ExpansionPanel style={{marginTop: 4}}>
+            <ExpansionPanel style={{marginTop: 8}}>
                 <ExpansionPanelSummary
                     expandIcon={<ExpandMoreIcon />}
                     aria-controls="panel1c-content"
@@ -72,8 +72,8 @@ function TuitionRequest(props) {
                         <Typography variant="h4" style={{ marginBottom: 15, color: '#183b4e' }}>Tutor Required!</Typography>
                         <Divider />
                         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around'}}>
-                            <Typography variant="h6">BS Social Sciences</Typography>
-                            <Typography variant="h6">Faisalabad</Typography>
+                            <Typography variant="h6">{tuition.trDegreeL + " of " + tuition.trDegreeT}</Typography>
+                            <Typography variant="h6">{tuition.trCity}</Typography>
                         </div>
                     </div>
 
@@ -92,31 +92,31 @@ function TuitionRequest(props) {
                                                     <TableCell align="left">
                                                         <b>Class</b>
                                                     </TableCell>
-                                                    <TableCell align="left">{tutor.tDegreeL + " of " + tutor.tDegreeT}</TableCell>
+                                                    <TableCell align="left">{tuition.trClass}</TableCell>
                                                 </TableRow>
                                                 <TableRow key={2}>
                                                     <TableCell align="left">
                                                         <b>Subject</b>
                                                     </TableCell>
-                                                    <TableCell align="left">{tutor.subject1 + ", " + tutor.subject2 + ", " + tutor.subject3}</TableCell>
+                                                    <TableCell align="left">{tuition.trSubject}</TableCell>
                                                 </TableRow>
                                                 <TableRow key={3}>
                                                     <TableCell>
                                                         <b>Posted At</b>
                                                     </TableCell>
-                                                    <TableCell align="left">{tutor.wttDegreeL + " of " + tutor.wttDegreeT}</TableCell>
+                                                    <TableCell align="left">{tuition.trPostedAt}</TableCell>
                                                 </TableRow>
                                                 <TableRow key={4}>
                                                     <TableCell>
                                                         <b>Contact</b>
                                                     </TableCell>
-                                                    <TableCell align="left">{tutor.tPhone + ", " + tutor.tEmail}</TableCell>
+                                                    <TableCell align="left">{tuition.trPhone + ", " + tuition.trEmail}</TableCell>
                                                 </TableRow>
                                                 <TableRow key={5}>
                                                     <TableCell>
                                                         <b>Address</b>
                                                     </TableCell>
-                                                    <TableCell align="left">{tutor.tAddress}</TableCell>
+                                                    <TableCell align="left">{tuition.trAddress}</TableCell>
                                                 </TableRow>
                                             </TableBody>
                                         </Table>

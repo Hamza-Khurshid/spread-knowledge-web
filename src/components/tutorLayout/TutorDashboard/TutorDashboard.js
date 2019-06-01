@@ -6,7 +6,7 @@ import TutorProfile from './components/TutorProfile';
 import { connect } from 'react-redux';
 
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import TuitionRequest from '../../myComponents/TuitionRequest';
+import TuitionRequests from '../TuitionRequests/TuitionRequests';
 
 
 class TutorDashboard extends Component {
@@ -46,7 +46,7 @@ class TutorDashboard extends Component {
   return (
     <div className="App">
         <AppBar toggleDrawer={this.toggleDrawer} />
-        <TuitionRequest tutor={tutor}/>
+        <TuitionRequests />
         <TutorProfile tutors={this.props.tutors} />
         <Drawer toggleDrawer={this.toggleDrawer} state={this.state.left} />
 
