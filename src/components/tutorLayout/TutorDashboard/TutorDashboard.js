@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import TuitionRequests from '../TuitionRequests/TuitionRequests';
+import Messenger from '../../Chat/Messenger';
 
 
 class TutorDashboard extends Component {
@@ -46,14 +47,8 @@ class TutorDashboard extends Component {
   return (
     <div className="App">
         <AppBar toggleDrawer={this.toggleDrawer} />
-        <TuitionRequests />
         <TutorProfile tutors={this.props.tutors} />
         <Drawer toggleDrawer={this.toggleDrawer} state={this.state.left} />
-
-
-        <Router>
-            <Route exact path='/' component={TutorProfile} />
-        </Router>
 
     </div>
   );

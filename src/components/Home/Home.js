@@ -5,6 +5,7 @@ import TutorsList from '../TutorsList/TutorsList';
 import MainDrawer from '../MainDrawer/MainDrawer';
 import TutorGetStart from '../tutorLayout/GetStart/GettingStarted';
 import Profile from '../Profile';
+import TuitionRequests from '../tutorLayout/TuitionRequests/TuitionRequests';
 
 class Home extends Component {
   state = {

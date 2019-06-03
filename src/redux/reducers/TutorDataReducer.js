@@ -8,6 +8,7 @@ import { ADD_TUTOR, EDIT_TUTOR, GET_TUTOR, DELETE_TUTOR } from '../actions/Tutor
 var initState = {
     tutors: [
         {
+            id: '00dfdfd0d0fdf0fd',
             tName: 'Faizan Mustafa',
             tEmail: 'faizan@gmail.com',
             tPassword: 'faizan123',
@@ -29,6 +30,7 @@ var initState = {
             fTo: '10500'
         },
         {
+            id: '00dfdfd0d0fdf014',
             tName: 'Sajawal Nadeem',
             tEmail: 'sajawal@gmail.com',
             tPassword: 'sajawal123',
@@ -50,6 +52,7 @@ var initState = {
             fTo: '5500'
         },
         {
+            id: '00dfdfd0d0fdf000',
             tName: 'Hamza Khurshid',
             tEmail: 'hamza@gmail.com',
             tPassword: 'hamza123',

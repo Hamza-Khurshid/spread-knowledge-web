@@ -51,7 +51,7 @@ function MainDrawer(props) {
           </ListItem>
         </Link>
         <Divider />
-        <Link to='/TutorDashboard/Chats'>
+        <Link to='/Chats'>
           <ListItem button key="2">
             <ListItemIcon> <img src={require('../../../assets/icons/chat.svg')} className={classes.icon} /> </ListItemIcon>
             <ListItemText primary="My Chats" />

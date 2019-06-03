@@ -69,11 +69,11 @@ function TuitionRequest(props) {
                     id="panel1c-header"
                 >
                     <div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
-                        <Typography variant="h4" style={{ marginBottom: 15, color: '#183b4e' }}>Tutor Required!</Typography>
+                        <Typography variant="h5" style={{ marginBottom: 15, color: '#183b4e' }}>Tutor Required!</Typography>
                         <Divider />
                         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around'}}>
-                            <Typography variant="h6">{tuition.trDegreeL + " of " + tuition.trDegreeT}</Typography>
-                            <Typography variant="h6">{tuition.trCity}</Typography>
+                            <Typography variant="h7">{tuition.trDegreeL + " of " + tuition.trDegreeT}</Typography>
+                            <Typography variant="h7">{tuition.trCity}</Typography>
                         </div>
                     </div>
 

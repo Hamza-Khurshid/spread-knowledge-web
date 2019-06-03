@@ -47,7 +47,7 @@ function MainDrawer(props) {
 
       <List>
         
-        <Link to='/'>
+        <Link to='/TuitionRequests'>
           <ListItem button key="1">
             <ListItemIcon> <img src={require('../../assets/icons/wallet.svg')} className={classes.icon} /> </ListItemIcon>
             <ListItemText primary="Tuition Requests" />
