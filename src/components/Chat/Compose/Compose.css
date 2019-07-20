@@ -5,7 +5,7 @@
   background: white;
   border-top: 1px solid #eeeef1;
   position: fixed;
-  width: calc(100% - 20px);
+  width: calc(70% - 20px);
   bottom: 0px;
 }
 
@@ -23,6 +23,8 @@
   font-size: 14px;
   height: 40px;
   background: none;
+  padding: 10px;
+  margin-right: 120px;
 }
 
 .compose-input::placeholder {

@@ -8,6 +8,7 @@ import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";
 import SearchAppBar from './AppBar';
 import TutorsList from "./SuggestedTutors";
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles(theme => ({
     typright: {
@@ -43,10 +44,12 @@ const CardExample = (props) => {
                                 manipulation and implementation.
                                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
                                 malesuada lacus ex, sit amet blandit leo lobortis eget.
-                    </MDBCardText>
-                            <MDBBtn color="primary" size="md">
-                                Edit Profile
-                    </MDBBtn>
+                            </MDBCardText>
+                            <Link to='/EditTutorProfile'>
+                                <MDBBtn color="primary" size="md">
+                                    Edit Profile
+                                </MDBBtn>
+                            </Link>
                         </MDBCardBody>
                     </MDBCard>
                 </MDBCol>

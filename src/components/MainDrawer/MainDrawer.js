@@ -61,7 +61,7 @@ function MainDrawer(props) {
           </ListItem>
         </Link>
         <Divider />
-        <Link to='StudentSignup'>
+        <Link to='StudentLogin'>
           <ListItem button key="3">
             <ListItemIcon> <img src={require('../../assets/icons/student1.svg')} className={classes.icon} /> </ListItemIcon>
             <ListItemText primary="Login As Student" />

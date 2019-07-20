@@ -9,16 +9,19 @@ export default class ConversationListItem extends Component {
   }
 
   render() {
-    const { photo, name, text } = this.props.data;
+    const user = this.props.data;
+    let name = user.tName;
 
-    return (
-      <div className="conversation-list-item">
-        <img className="conversation-photo" src={photo} alt="conversation" />
-        <div className="conversation-info">
-          <h1 className="conversation-title">{ name }</h1>
-          <p className="conversation-snippet">{ text }</p>
-        </div>
-      </div>
+    return ( 
+        <div className="conversation-list-item" onClick={() => this.props.conversationItemClickHandler(user)}>
+          <div className="view">
+            <h4 className="conversation-avatar">{name.charAt(0).toUpperCase()}</h4>
+          </div>
+          <div className="conversation-info">
+            <h1 className="conversation-title">{ name }</h1>
+            <p className="conversation-snippet"></p>
+          </div>
+        </div> 
     );
   }
 }

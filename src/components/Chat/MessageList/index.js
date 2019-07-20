@@ -12,27 +12,54 @@ import './MessageList.css';
 let user = localStorage.getItem('authUser');
 user = JSON.parse(user);
 
-const MY_USER_ID = "00dfdfd0d0fdf014";
+const MY_USER_ID = 'user.id';
 
 class MessageList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      messages: []
+      messages: [],
+      chatId: ''
     };
   }
 
-  componentDidMount() {
+  //WARNING! To be deprecated in React v17. Use componentDidUpdate instead.
+  componentWillUpdate() {
+    console.log('===============nextProps=====================');
+  console.log(this.state.chatId);
+  console.log('====================================');
+  }
+
+  componentWillReceiveProps(nextProps) {
+    let u = nextProps.user;
+    if(u) {
+    this.setState({
+        chatId: u.id
+      })
+
     this.getMessages();
+    }
+
   }
 
   getMessages = () => {
-    this.setState(prevState => {
-      return {
-        ...prevState,
-        messages: this.props.messages
-      };
-    });
+    let chatId = this.state.chatId;
+    if(chatId != '') {
+      let msgs = this.props.messages;
+      msgs = msgs.filter(m => (m.sender == MY_USER_ID && m.reciever == chatId) || (m.reciever == MY_USER_ID && m.sender == chatId));
+
+      console.log('===============msgs=====================');
+    console.log(msgs);
+    console.log('====================================');
+      this.setState(prevState => {
+        return {
+          ...prevState,
+          messages: msgs
+        };
+      });
+    } else {
+      this.setState({ currentlyChat: false })
+    }
   }
 
   renderMessages() {
@@ -105,8 +132,14 @@ class MessageList extends Component {
             <ToolbarButton key="phone" icon="ion-ios-call" />
           ]}
         />
-
-        <div className="message-list-container">{this.renderMessages()}</div>
+        { this.state.messages.length == 0 ? 
+            <h3 style={{marginTop: '25%'}}>No chat yet</h3> 
+          :
+           this.state.chatId != '' ? 
+            <div className="message-list-container">{this.renderMessages()}</div>
+            :
+            <h3 style={{marginTop: '25%'}}>Select a user to chat</h3>
+        }
 
         <Compose rightItems={[
           <ToolbarButton key="photo" icon="ion-ios-camera" />,
@@ -116,6 +149,7 @@ class MessageList extends Component {
           <ToolbarButton key="games" icon="ion-logo-game-controller-b" />,
           <ToolbarButton key="emoji" icon="ion-ios-happy" />
         ]}/>
+        
       </div>
     );
   }

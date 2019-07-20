@@ -44,20 +44,20 @@ function MainDrawer(props) {
 
       <List>
         
-        <Link to='/TutorDashboard/TuitionRequests'>
+        <Link to='/TuitionRequests'>
           <ListItem button key="1">
             <ListItemIcon> <img src={require('../../../assets/icons/wallet.svg')} className={classes.icon} /> </ListItemIcon>
             <ListItemText primary="Tuition Requests" />
           </ListItem>
         </Link>
         <Divider />
-        <Link to='/Chats'>
+        {/* <Link to='/Chats'>
           <ListItem button key="2">
             <ListItemIcon> <img src={require('../../../assets/icons/chat.svg')} className={classes.icon} /> </ListItemIcon>
             <ListItemText primary="My Chats" />
           </ListItem>
         </Link>
-        <Divider />
+        <Divider /> */}
         <Link to='/'>
           <ListItem button key="3">
             <ListItemIcon> <img src={require('../../../assets/icons/tutor.svg')} className={classes.icon} /> </ListItemIcon>

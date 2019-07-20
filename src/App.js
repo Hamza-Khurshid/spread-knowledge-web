@@ -12,6 +12,7 @@ import TuitionRequests from './components/tutorLayout/TuitionRequests/TuitionReq
 
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Messenger from './components/Chat/Messenger';
+import EditTutorProfile from './components/tutorLayout/TutorDashboard/components/EditTutorProfile';
 
 function App() {
   return (
@@ -49,12 +50,11 @@ function App() {
         <Route
           path="/TuitionRequests"
           component={TuitionRequests}
+        />  
+        <Route
+          path="/EditTutorProfile"
+          component={EditTutorProfile}
         /> 
-
-        <Route 
-          path="/Chats" 
-          component={Messenger} 
-        />
       </div>
     </Router>
   );
