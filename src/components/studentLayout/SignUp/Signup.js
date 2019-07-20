@@ -23,6 +23,43 @@ class SignUp extends Component {
         })
     }
 
+    guidGenerator = () => {
+        var S4 = function() {
+           return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
+        };
+        return (S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4());
+    }
+
+    signUpHandler = (e) => {
+        e.preventDefault();
+
+        let { radio, username, email, password } = this.state;
+        if(username==='' || email==='' || password==='') {
+            alert('No empty field allowed!')
+        } else {
+            let gender = '';
+            if (radio === 1) {
+                gender = 'male'
+            } else if (radio === 2) {
+                gender = 'female'
+            }
+
+            let student  = {
+                id: this.guidGenerator(),
+                name: username,
+                email,
+                password,
+                gender
+            }
+
+            this.props.history.push({ 
+                pathname: `/StudentGetStarted/${student.id}`,
+                state: { student }
+            });
+        }
+
+    }
+
     render() {
         return (
             <MDBContainer>
@@ -30,7 +67,7 @@ class SignUp extends Component {
                 <MDBCol md="6" style={{padding: 10, margin: "auto"}}>
                 <MDBCard>
                     <MDBCardBody>
-                    <form>
+                    <form onSubmit={(event) => this.signUpHandler(event)}>
                         <div className="text-left"> 
                             <Link to="/"> 
                                 <img src={BACK_ARROW} alt="Back" style={{height: 20, width: 25, marginLeft: 40, cursor: 'pointer'}}/> 

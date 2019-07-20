@@ -9,10 +9,12 @@ import StudentSignUp from './components/studentLayout/SignUp/Signup';
 import TutorGetStart from './components/tutorLayout/GetStart/GettingStarted';
 import TutorDashboard from './components/tutorLayout/TutorDashboard/TutorDashboard';
 import TuitionRequests from './components/tutorLayout/TuitionRequests/TuitionRequests';
+import StudentDashboard from './components/studentLayout/StudentDashboard/StudentDashboard';
 
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Messenger from './components/Chat/Messenger';
 import EditTutorProfile from './components/tutorLayout/TutorDashboard/components/EditTutorProfile';
+import GetStarted from './components/studentLayout/SignUp/GetStarted';
 
 function App() {
   return (
@@ -36,6 +38,14 @@ function App() {
           component={StudentSignUp}
         />
         <Route
+          path='/StudentGetStarted/:id'
+          component={GetStarted}
+        />
+        <Route
+          path="/StudentDashboard"
+          component={StudentDashboard}
+        />
+        <Route
           path='/TutorSignup'
           component={TutorSignUp}
         />
@@ -52,7 +62,7 @@ function App() {
           component={TuitionRequests}
         />  
         <Route
-          path="/EditTutorProfile"
+          path="/EditTutorProfile/:id"
           component={EditTutorProfile}
         /> 
       </div>

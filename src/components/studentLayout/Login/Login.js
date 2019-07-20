@@ -2,11 +2,39 @@ import React, {Component} from "react";
 import { MDBContainer, MDBFormInline, MDBRow, MDBCol, MDBInput, MDBBtn, MDBCard, MDBCardBody } from 'mdbreact';
 import { Link } from 'react-router-dom';
 import BACK_ARROW from '../../../assets/icons/left-arrow.svg';
+import { connect } from 'react-redux';
 
 class Login extends Component {
     state = {
         email: '',
         password: '',
+    }
+
+    componentWillMount() {
+        let user = localStorage.getItem("authStudent");
+        if(user) {
+            this.props.history.push("/StudentDashboard");
+        }
+    }
+
+    loginHandler = (e) => {
+        e.preventDefault();
+
+        let email = this.state.email;
+        let password = this.state.password;
+
+        if(email == "" || password == "") {
+            alert("No empty field allowed!");
+        } else {
+            let students = this.props.students;
+            students = students.filter( t => t.email == email && t.password == password );
+            if(students.length > 0) {
+                localStorage.setItem("authUser", JSON.stringify(students[0]));
+                this.props.history.push("/StudentDashboard");
+            } else {
+                alert("Incorrect credentials!")
+            }
+        }
     }
 
 
@@ -17,7 +45,7 @@ class Login extends Component {
                 <MDBCol md="6" className="align-middle" style={{padding: "auto", margin: "auto", marginTop: "5.5vw"}}>
                 <MDBCard>
                     <MDBCardBody>
-                    <form>
+                    <form onSubmit={(event) => this.loginHandler(event)}>
                         <div className="text-left"> 
                             <Link to="/"> 
                                 <img src={BACK_ARROW} alt="Back" style={{height: 20, width: 25, marginLeft: 40, cursor: 'pointer'}}/> 
@@ -64,4 +92,10 @@ class Login extends Component {
     }
 };
 
-export default Login;
+const mapStateToProps = (state) => {
+    return {
+        students: state.studentDataReducer.students
+    }
+}
+
+export default connect(mapStateToProps)(Login);

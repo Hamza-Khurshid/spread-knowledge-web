@@ -4,7 +4,9 @@ import AppBarEditTutor from '../../../myComponents/TitleAppBar';
 import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-
+import { CITIES } from '../../../../constants/Constants';
+import { connect } from 'react-redux';
+import { updateTutor } from '../../../../redux/actions/TutorDataAction';
 
 import Input from '@material-ui/core/Input';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
@@ -60,9 +62,29 @@ class EditTutorProfile extends Component {
     }
 
     componentDidMount() {
-        this.setState({
-          labelWidth: ReactDOM.findDOMNode(this.InputLabelRef).offsetWidth,
-        });
+        let tutor = this.props.location.query.tutor;
+        if(tutor) {
+            this.setState({
+                name: tutor.tName,
+                email: tutor.tEmail,
+                password: tutor.tPassword,
+                phone: tutor.tPhone,
+                city: tutor.tCity,
+                address: tutor.tAddress,
+                tDegreeL: tutor.tDegreeL,
+                tDegreeT: tutor.tDegreeT,
+                eDegreeL: tutor.eDegreeL,
+                eDegreeT: tutor.eDegreeT,
+                wttDegreeL: tutor.wttDegreeL,
+                wttDegreeT: tutor.wttDegreeT,
+                subject1: tutor.subject1,
+                subject2: tutor.subject2,
+                subject3: tutor.subject3,
+                feeFrom: tutor.fFrom,
+                feeTo: tutor.fTo,
+                labelWidth: ReactDOM.findDOMNode(this.InputLabelRef).offsetWidth,
+            })
+        }
     }
 
     handleChange = event => {
@@ -70,33 +92,45 @@ class EditTutorProfile extends Component {
     };
 
     updateHandler = () => {
-        let { name, email, password, phone, city, address, tDegreeL, 
+        let { id, tGender, imgURL, name, email, password, phone, city, address, tDegreeL, 
             tDegreeT, eDegreeL, eDegreeT, wttDegreeL, wttDegreeT, 
             subject1, subject2, subject3, feeFrom, feeTo  } = this.state;
 
-            console.log("Name TO UPDATE=======>", name)
-            console.log("Email TO UPDATE=======>", email)
-            console.log("Password TO UPDATE=======>", password)
-            console.log("Phone TO UPDATE=======>", phone)
-            console.log("City TO UPDATE=======>", city)
-            console.log("Address TO UPDATE=======>", address)
-            console.log("T LevelDATA TO UPDATE=======>", tDegreeL)
-            console.log("T TitleDATA TO UPDATE=======>", tDegreeT)
-            console.log("E LevelDATA TO UPDATE=======>", eDegreeL)
-            console.log("E Title DATA TO UPDATE=======>", eDegreeT)
-            console.log("WTT Level DATA TO UPDATE=======>", wttDegreeL)
-            console.log("WWT Title DATA TO UPDATE=======>", wttDegreeT)
-            console.log("Subject 1 DATA TO UPDATE=======>", subject1)
-            console.log("Subject 2 DATA TO UPDATE=======>", subject2)
-            console.log("Subject 3 DATA TO UPDATE=======>", subject3)
-            console.log("Fee From DATA TO UPDATE=======>", feeFrom)
-            console.log("Fee To DATA TO UPDATE=======>", feeTo)
+        if (name===""||email===""||password===""||city===""||address===""||phone===""||tDegreeL===""||tDegreeT===""||eDegreeL===""||eDegreeT===""||wttDegreeL===""||wttDegreeT===""||subject1===""||subject2===""||subject3===""||feeFrom===""||feeTo==="") {
+            alert("No empty field allowed!");
+        } else {
+            var tutorInfo = {
+                id,
+                tName: name,
+                tEmail: email,
+                tPassword: password,
+                tGender,
+                imgURL,
+                tCity: city,
+                tAddress: address,
+                tPhone: phone,
+                tDegreeT,
+                tDegreeL,
+                eDegreeL,
+                eDegreeT,
+                wttDegreeL,
+                wttDegreeT,
+                subject1,
+                subject2,
+                subject3,
+                fFrom: feeFrom,
+                fTo: feeTo
+            }
 
-            
+            this.props.updateTutor(tutorInfo);
+            this.props.history.push('/TutorDashboard');
+        }
     }
 
     render() {
         const { classes } = this.props;
+        let tutor = this.props.location.query.tutor;
+        console.log("PROPS:", tutor);
 
         return (
             <Grid
@@ -108,7 +142,7 @@ class EditTutorProfile extends Component {
                 
                 <AppBarEditTutor title='Edit Profile' backLink='/TutorDashboard' />
                 
-                <Paper style={{width: '85%', paddingTop: 20, paddingBottom: 20, paddingLeft: 30, paddingRight: 30, marginBottom: 10}}>
+                <Paper style={{width: '85%', paddingTop: 30, paddingBottom: 20, paddingLeft: 30, paddingRight: 30, marginBottom: 10}}>
                     <TextField
                         id="standard-full-width"
                         label="Name"
@@ -143,7 +177,7 @@ class EditTutorProfile extends Component {
                         label="Password"
                         placeholder="Enter new password"
                         fullWidth
-                        type='password'
+                        // type='password'
                         margin="normal"
                         variant="outlined"
                         name="password"
@@ -189,9 +223,9 @@ class EditTutorProfile extends Component {
                                 />
                             }
                         >
-                            <MenuItem value='Karachi'>Karachi</MenuItem>
-                            <MenuItem value="Lahore">Lahore</MenuItem>
-                            <MenuItem value='Faisalabad'>Faisalabad</MenuItem>
+                            { CITIES.map( cty => (
+                                <MenuItem value={cty}>{cty}</MenuItem>
+                            )) }
                         </Select>
                     </FormControl>
                     
@@ -427,4 +461,4 @@ class EditTutorProfile extends Component {
         )
     }
 }
- export default withStyles(styles)(EditTutorProfile);
+ export default connect(null, { updateTutor })(withStyles(styles)(EditTutorProfile));

@@ -63,7 +63,7 @@ class TutorGetStart extends React.Component {
     let tGender = localStorage.getItem("gender");
     let imgURL = "https://i.ibb.co/1swJS3Z/daniel.jpg";
 
-    if (tCity==""||tAddress==""||tPhone==""||tDegreeL==""||tDegreeT==""||eDegreeL==""||eDegreeT==""||wttDegreeL==""||wttDegreeT==""||subject1==""||subject2==""||subject3==""||fFrom==""||fTo=="") {
+    if (tCity===""||tAddress===""||tPhone===""||tDegreeL===""||tDegreeT===""||eDegreeL===""||eDegreeT===""||wttDegreeL===""||wttDegreeT===""||subject1===""||subject2===""||subject3===""||fFrom===""||fTo==="") {
       alert("No empty field allowed!");
     } else {
       var tutotInfo = {
@@ -91,7 +91,6 @@ class TutorGetStart extends React.Component {
 
       this.props.addTutor(tutotInfo);
       localStorage.setItem("authUser", JSON.stringify(tutotInfo));
-      console.log("=========", tutotInfo);
       this.props.history.push('/TutorDashboard')
     }
   }

@@ -45,7 +45,10 @@ const CardExample = (props) => {
                                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
                                 malesuada lacus ex, sit amet blandit leo lobortis eget.
                             </MDBCardText>
-                            <Link to='/EditTutorProfile'>
+                            <Link to={{ pathname: `/EditTutorProfile/${tutor.id}`, 
+                                    query: {
+                                        tutor
+                                    }}} >
                                 <MDBBtn color="primary" size="md">
                                     Edit Profile
                                 </MDBBtn>

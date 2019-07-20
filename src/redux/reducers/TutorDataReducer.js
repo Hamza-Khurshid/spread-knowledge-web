@@ -1,4 +1,4 @@
-import { ADD_TUTOR, EDIT_TUTOR, GET_TUTOR, DELETE_TUTOR } from '../actions/TutorDataAction';
+import { ADD_TUTOR, EDIT_TUTOR, GET_TUTOR, DELETE_TUTOR, UPDATE_TUTOR } from '../actions/TutorDataAction';
 
 //imgURL: "https://i.ibb.co/Hhhr5XW/38674381-909016475952869-9216475105356414976-n-Copy.jpg"
 // https://i.ibb.co/gzkFHJ9/faiz-mustafa.jpg
@@ -81,13 +81,7 @@ export default function tutorDataReducer(state = initState, action) {
         case ADD_TUTOR:
         {
             let tutors = state.tutors;
-            console.log('=================Tutors before addition===================');
-            console.log(tutors);
-            console.log('====================================');
             tutors = tutors.concat(action.data);
-            console.log('=================Tutors after addition===================');
-            console.log(tutors);
-            console.log('====================================');
             
             return {
                 ...state,
@@ -106,15 +100,21 @@ export default function tutorDataReducer(state = initState, action) {
 
         }
 
-        // case GET_TUTOR:
-        // {
-        //     let tutor = state.tutors.filter( tutor => tutor.id === action.data );
-        //     return {
-        //         ...state,
-        //         tutors: tutors.push(action.data)
-        //     }
+        case UPDATE_TUTOR:
+        {
+            let tutors = state.tutors.map( tutor => {
+                if(tutor.id === action.data.id) {
+                    return action.data
+                } else {
+                    return tutor
+                }
+            });
+            return {
+                ...state,
+                tutors
+            }
 
-        // }    
+        }    
     
         default:
             return state;
