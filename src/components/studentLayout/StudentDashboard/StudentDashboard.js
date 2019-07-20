@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import '../../../App.css';
 import AppBar from '../../tutorLayout/TutorDashboard/components/DashAppBar';
 import Drawer from '../../tutorLayout/TutorDrawer/TutorDrawer';
-import TutorProfile from '../../tutorLayout/TutorDashboard/components/TutorProfile';
+import StudentProfile from './components/StudentProfile';
 import { connect } from 'react-redux';
 
 
@@ -38,12 +38,12 @@ class StudentDashboard extends Component {
   }
 
   render() { 
-    let tutor = localStorage.getItem("authUser");
-    tutor = JSON.parse(tutor);   
+    let student = localStorage.getItem("authStudent");
+    student = JSON.parse(student);   
   return (
     <div className="App">
         <AppBar toggleDrawer={this.toggleDrawer} />
-        {/* <TutorProfile tutors={this.props.tutors} /> */}
+        <StudentProfile tutors={this.props.tutors} />
         <Drawer toggleDrawer={this.toggleDrawer} state={this.state.left} />
 
     </div>
