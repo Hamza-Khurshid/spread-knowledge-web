@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import TuitionRequest from '../../myComponents/TuitionRequest';
-import TitleAppBar from '../../myComponents/TitleAppBar';
+import TuitionRequest from '../TuitionRequest';
+import TitleAppBar from '../TitleAppBar';
 
 class TuitionRequests extends Component {
 
@@ -11,7 +11,7 @@ class TuitionRequests extends Component {
 
         return (
             <div>
-                <TitleAppBar title='Tution Requests' backLink='/TutorDashboard' />
+                <TitleAppBar title='Tution Requests' backLink='/' />
                 { tuitions.length > 0 ?
                  tuitions.map( tuition => {
                      return (

@@ -3,15 +3,14 @@ import { connect } from 'react-redux';
 import TuitionRequest from '../../myComponents/TuitionRequest';
 import TitleAppBar from '../../myComponents/TitleAppBar';
 
-class TuitionRequests extends Component {
+class MyTuitionRequests extends Component {
 
     render() {
         let {tuitions} = this.props;
 
-
         return (
             <div>
-                <TitleAppBar title='Tution Requests' backLink='/TutorDashboard' />
+                <TitleAppBar title='Tution Requests' backLink='/StudentDashboard' />
                 { tuitions.length > 0 ?
                  tuitions.map( tuition => {
                      return (
@@ -30,4 +29,4 @@ const mapStateToProps = (store) => {
     }
 }
 
-export default connect(mapStateToProps)(TuitionRequests);
+export default connect(mapStateToProps)(MyTuitionRequests);

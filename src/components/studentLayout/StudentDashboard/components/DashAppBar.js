@@ -4,23 +4,17 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import InputBase from '@material-ui/core/InputBase';
-import Badge from '@material-ui/core/Badge';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import { withStyles } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
-import SearchIcon from '@material-ui/icons/Search';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import MailIcon from '@material-ui/icons/Mail';
-import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
+import { withRouter } from 'react-router-dom';
 
 const styles = theme => ({
   root: {
-    marginTop: 25,
-    marginBottom: 5,
     width: '100%',
   },
   grow: {
@@ -31,10 +25,13 @@ const styles = theme => ({
     marginRight: 20,
   },
   title: {
-    display: 'none',
     [theme.breakpoints.up('sm')]: {
+        display: 'block',
+        marginLeft: 150
+      },
+    [theme.breakpoints.up('lg')]: {
       display: 'block',
-      marginLeft: 85 ,
+      marginLeft: 465
     },
   },
   search: {
@@ -90,7 +87,7 @@ const styles = theme => ({
   },
 });
 
-class MyAppBar extends React.Component {
+class DashAppBar extends React.Component {
   state = {
     anchorEl: null,
     mobileMoreAnchorEl: null
@@ -113,9 +110,16 @@ class MyAppBar extends React.Component {
     this.setState({ mobileMoreAnchorEl: null });
   };
 
+  logoutHandler = () => {
+    this.setState({ anchorEl: null });
+    this.handleMobileMenuClose();
+    localStorage.clear();
+    this.props.history.push("/");
+  }
+
   render() {
     const { anchorEl, mobileMoreAnchorEl } = this.state;
-    const { classes, } = this.props;
+    const { classes, toggleDrawer } = this.props;
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
@@ -127,8 +131,8 @@ class MyAppBar extends React.Component {
         open={isMenuOpen}
         onClose={this.handleMenuClose}
       >
-        <MenuItem onClick={this.handleMenuClose}>Profile</MenuItem>
-        <MenuItem onClick={this.handleMenuClose}>My account</MenuItem>
+        <MenuItem onClick={this.logoutHandler}>Logout</MenuItem>
+        {/* <MenuItem onClick={this.handleMenuClose}>My account</MenuItem> */}
       </Menu>
     );
 
@@ -140,22 +144,6 @@ class MyAppBar extends React.Component {
         open={isMobileMenuOpen}
         onClose={this.handleMenuClose}
       >
-        <MenuItem onClick={this.handleMobileMenuClose}>
-          <IconButton color="inherit">
-            <Badge badgeContent={4} color="secondary">
-              <MailIcon />
-            </Badge>
-          </IconButton>
-          <p>Messages</p>
-        </MenuItem>
-        <MenuItem onClick={this.handleMobileMenuClose}>
-          <IconButton color="inherit">
-            <Badge badgeContent={11} color="secondary">
-              <NotificationsIcon />
-            </Badge>
-          </IconButton>
-          <p>Notifications</p>
-        </MenuItem>
         <MenuItem onClick={this.handleProfileMenuOpen}>
           <IconButton color="inherit">
             <AccountCircle />
@@ -168,24 +156,29 @@ class MyAppBar extends React.Component {
     return (
       <div className={classes.root}>
         <AppBar position="static">
-          <Toolbar style={{backgroundColor: "#183b4e", flexDirection: 'row', alignItems: 'center'}}>            
-            <div className={classes.search} >
-              <div className={classes.searchIcon}>
-                <SearchIcon />
-              </div>
-              <InputBase
-                placeholder="Subject/Degree/City"
-                value={this.props.searchQuery}
-                onChange={(event) => this.props.searchTextChangeHandler(event)}
-                classes={{
-                  root: classes.inputRoot,
-                  input: classes.inputInput,
-                }}
-              />
-            </div>
-            <Typography className={classes.title} variant="h6" color="inherit" noWrap style={{alignSelf: 'center'}} >
-              Recommended Tuition Requests
+          <Toolbar style={{backgroundColor: "#183b4e"}}>
+            <IconButton onClick={toggleDrawer(true)} className={classes.menuButton} color="inherit" aria-label="Open drawer">
+              <MenuIcon />
+            </IconButton>
+            <Typography className={classes.title} variant="h6" color="inherit" noWrap style={{alignSelf: 'center'}}>
+              Spread Knowledge
             </Typography>
+            <div className={classes.grow} />
+            <div className={classes.sectionDesktop}>
+              <IconButton
+                aria-owns={isMenuOpen ? 'material-appbar' : undefined}
+                aria-haspopup="true"
+                onClick={this.handleProfileMenuOpen}
+                color="inherit"
+              >
+                <AccountCircle />
+              </IconButton>
+            </div>
+            <div className={classes.sectionMobile}>
+              <IconButton aria-haspopup="true" onClick={this.handleMobileMenuOpen} color="inherit">
+                <MoreIcon />
+              </IconButton>
+            </div>
           </Toolbar>
         </AppBar>
         {renderMenu}
@@ -195,8 +188,8 @@ class MyAppBar extends React.Component {
   }
 }
 
-MyAppBar.propTypes = {
+DashAppBar.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(MyAppBar);
+export default withRouter(withStyles(styles)(DashAppBar));

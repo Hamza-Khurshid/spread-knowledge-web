@@ -3,43 +3,40 @@ import { ADD_TUITION_REQ, EDIT_TUITION_REQ, GET_TUITION_REQ, DELETE_TUITION_REQ 
 var initState = {
     tuitions: [
         {
-            trSenderId: '065521554455',
-            trSender: 'Faizan Mustafa',
-            trEmail: 'faizan@gmail.com',
-            trPhone: '0336-7725522',
+            trSenderId: '004100d0d0fdf0fd',
             trCity: 'Toba Tek Singh',
-            trClass: '15',
             trAddress: 'Perrha, Toba Tek Singh',
+            trClass: '15',
             trDegreeL: 'Masters',
             trDegreeT: 'Software Engineering',
             trSubject: 'Artificial Intelligence',
-            trPostedAt: '15-May-2019'
+            trPostedAt: '15-May-2019',
+            timeFrom: '10:00 AM',
+            timeTo: '11:00 AM'
         },
         {
-            trSenderId: '1100521554180',
-            trSender: 'Sajawal Nadeem',
-            trEmail: 'sajawal@gmail.com',
-            trPhone: '0336-7725522',
+            trSenderId: '00dfdfx71sfdf014',
             trCity: 'Sahiwal',
             trClass: '12',
             trAddress: 'Perrha, Toba Tek Singh',
             trDegreeL: 'Intermediate',
             trDegreeT: 'F.Sc (Pre Engg.)',
             trSubject: 'Mathematics',
-            trPostedAt: '17-August-2018'
+            trPostedAt: '17-August-2018',
+            timeFrom: '02:30 PM',
+            timeTo: '05:00 PM'
         },
         {
-            trSenderId: '85422244177411',
-            trSender: 'Alia',
-            trEmail: 'alia@gmail.com',
-            trPhone: '021-1425585',
+            trSenderId: '00dfdfd0d0qpa10',
             trCity: 'Lahore',
             trClass: '13',
             trAddress: 'Perrha, Toba Tek Singh',
             trDegreeL: 'Bachelors',
             trDegreeT: 'Computer Science',
             trSubject: 'Computer Network',
-            trPostedAt: '10-June-2019'
+            trPostedAt: '10-June-2019',
+            timeFrom: '04:00 PM',
+            timeTo: '05:30 PM'
         },
     ]
 };
@@ -49,17 +46,11 @@ export default function tuitionRequestReducer(state = initState, action) {
         case ADD_TUITION_REQ:
         {
             let tuitions = state.tuitions;
-            console.log('=================Tuition requests before addition===================');
-            console.log(tuitions);
-            console.log('====================================');
-            tuitions = tuitions.concat(action.data);
-            console.log('=================Tuition requests after addition===================');
-            console.log(tuitions);
-            console.log('====================================');
+            tuitions.push(action.data);
             
             return {
                 ...state,
-                tuitions: tuitions
+                tuitions
             }
 
         }

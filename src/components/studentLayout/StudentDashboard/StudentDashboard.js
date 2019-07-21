@@ -1,23 +1,14 @@
 import React, { Component } from 'react';
 import '../../../App.css';
-import AppBar from '../../tutorLayout/TutorDashboard/components/DashAppBar';
-import Drawer from '../../tutorLayout/TutorDrawer/TutorDrawer';
+import AppBar from './components/DashAppBar';
+import Drawer from './components/StudentDrawer';
 import StudentProfile from './components/StudentProfile';
-import { connect } from 'react-redux';
 
 
 class StudentDashboard extends Component {
   state = {
     searchQuery: '',
     left: false
-  }
-
-  componentWillMount() {
-    let user = localStorage.getItem("username");
-    let email = localStorage.getItem("email");
-    let password = localStorage.getItem("password");
-    let gender = localStorage.getItem("gender");
-    console.log("username", user, email, password, gender);
   }
 
   toggleDrawer = (open) => event => {
@@ -43,7 +34,7 @@ class StudentDashboard extends Component {
   return (
     <div className="App">
         <AppBar toggleDrawer={this.toggleDrawer} />
-        <StudentProfile tutors={this.props.tutors} />
+        <StudentProfile />
         <Drawer toggleDrawer={this.toggleDrawer} state={this.state.left} />
 
     </div>
@@ -51,10 +42,4 @@ class StudentDashboard extends Component {
 }
 }
 
-const mapStateToProps = (store) => {
-    return {
-      tutors: store.tutorDataReducer.tutors
-    } 
-  }
-
-export default connect(mapStateToProps)(StudentDashboard);
+export default StudentDashboard;

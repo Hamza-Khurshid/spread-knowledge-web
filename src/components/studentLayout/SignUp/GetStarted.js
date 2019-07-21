@@ -17,6 +17,7 @@ class GetStarted extends Component {
     state= {
         city: '',
         address: '',
+        sClass: '',
         subject1: '',
         subject2: '',
         subject3: ''
@@ -42,7 +43,7 @@ class GetStarted extends Component {
         e.preventDefault();
 
         let { id, name, email, password, gender } = this.props.location.state.student;
-        let { city, address, subject1, subject2, subject3 } = this.state;
+        let { city, address, sClass, subject1, subject2, subject3 } = this.state;
 
         let allEmpty = false;
         if(subject1==='') {
@@ -56,7 +57,7 @@ class GetStarted extends Component {
         if(allEmpty) {
             alert('You need to enter at least one subject!')
         } else {
-            if(city==='' || address==='') {
+            if(city==='' || address==='' || sClass==='') {
                 alert('No empty field allowed!')
             } else {
     
@@ -68,6 +69,7 @@ class GetStarted extends Component {
                     gender,
                     city,
                     address,
+                    sClass,
                     subject1,
                     subject2,
                     subject3,
@@ -127,11 +129,22 @@ class GetStarted extends Component {
                                 </FormControl>
                                 <MDBInput
                                     label="Your address"
-                                    icon="user"
+                                    icon="map-marker-alt"
                                     value={this.state.address}
                                     onChange={(event) => this.onTextChange("address", event)}
                                     group
                                     type="text"
+                                    validate
+                                    error="wrong"
+                                    success="right"
+                                />
+                                <MDBInput
+                                    label="Class to study"
+                                    icon="book-open"
+                                    value={this.state.class}
+                                    onChange={(event) => this.onTextChange("sClass", event)}
+                                    group
+                                    type="number"
                                     validate
                                     error="wrong"
                                     success="right"

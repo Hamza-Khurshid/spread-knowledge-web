@@ -174,9 +174,9 @@ class MyAppBar extends React.Component {
                 <SearchIcon />
               </div>
               <InputBase
-                placeholder="Subject/Degree/City"
-                value={this.props.searchQuery}
-                onChange={(event) => this.props.searchTextChangeHandler(event)}
+                placeholder="Search by Name"
+                // value={this.props.searchQuery}
+                // onChange={(event) => this.props.searchTextChangeHandler(event)}
                 classes={{
                   root: classes.inputRoot,
                   input: classes.inputInput,
@@ -184,7 +184,7 @@ class MyAppBar extends React.Component {
               />
             </div>
             <Typography className={classes.title} variant="h6" color="inherit" noWrap style={{alignSelf: 'center'}} >
-              Recommended Tuition Requests
+              Suggested Tutors
             </Typography>
           </Toolbar>
         </AppBar>

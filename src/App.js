@@ -8,13 +8,15 @@ import StudentLogin from './components/studentLayout/Login/Login';
 import StudentSignUp from './components/studentLayout/SignUp/Signup';
 import TutorGetStart from './components/tutorLayout/GetStart/GettingStarted';
 import TutorDashboard from './components/tutorLayout/TutorDashboard/TutorDashboard';
-import TuitionRequests from './components/tutorLayout/TuitionRequests/TuitionRequests';
+import TuitionRequests from './components/myComponents/TuitionRequests/TuitionRequests';
 import StudentDashboard from './components/studentLayout/StudentDashboard/StudentDashboard';
 
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Messenger from './components/Chat/Messenger';
 import EditTutorProfile from './components/tutorLayout/TutorDashboard/components/EditTutorProfile';
 import GetStarted from './components/studentLayout/SignUp/GetStarted';
+import EditStudentProfile from './components/studentLayout/StudentDashboard/components/EditStudentProfile';
+import MyTuitionRequests from './components/studentLayout/TuitionRequests/MyTuitionRequests';
+import TutorTuitionRequests from './components/tutorLayout/TuitionRequests/TuitionRequests';
 
 function App() {
   return (
@@ -64,6 +66,18 @@ function App() {
         <Route
           path="/EditTutorProfile/:id"
           component={EditTutorProfile}
+        />  
+        <Route
+          path="/TutorTuitionRequests"
+          component={TutorTuitionRequests}
+        />  
+        <Route
+          path="/EditStudentProfile/:id"
+          component={EditStudentProfile}
+        />  
+        <Route
+          path="/StudentTuitionRequests"
+          component={MyTuitionRequests}
         /> 
       </div>
     </Router>

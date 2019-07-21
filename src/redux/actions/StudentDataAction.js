@@ -25,7 +25,7 @@ export function getStudent(id) {
 }
 
 export function updateStudent(data) {
-    localStorage.setItem('authUser', JSON.stringify(data));
+    localStorage.setItem('authStudent', JSON.stringify(data));
     alert('STUDENT updated!');
     return {
         type: UPDATE_STUDENT,

@@ -53,7 +53,13 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function sendProposalHandler() {
-    alert("Proposal Sent!")
+    let tutor = localStorage.getItem('authUser');
+    if(tutor) {
+        tutor = JSON.parse(tutor);
+        alert(tutor.tName + ' can send proposal.')
+    } else {
+        alert('First login as tutor!');
+    }
 }
 
 function TuitionRequest(props) {
@@ -70,7 +76,7 @@ function TuitionRequest(props) {
                 >
                     <div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
                         <Typography variant="h5" style={{ marginBottom: 15, color: '#183b4e' }}>Tutor Required!</Typography>
-                        <Divider />
+                        <Divider style={{marginBottom: 11}} />
                         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around'}}>
                             <Typography variant="h7">{tuition.trDegreeL + " of " + tuition.trDegreeT}</Typography>
                             <Typography variant="h7">{tuition.trCity}</Typography>
@@ -100,23 +106,23 @@ function TuitionRequest(props) {
                                                     </TableCell>
                                                     <TableCell align="left">{tuition.trSubject}</TableCell>
                                                 </TableRow>
-                                                <TableRow key={3}>
-                                                    <TableCell>
-                                                        <b>Posted At</b>
-                                                    </TableCell>
-                                                    <TableCell align="left">{tuition.trPostedAt}</TableCell>
-                                                </TableRow>
                                                 <TableRow key={4}>
                                                     <TableCell>
-                                                        <b>Contact</b>
+                                                        <b>Timing</b>
                                                     </TableCell>
-                                                    <TableCell align="left">{tuition.trPhone + ", " + tuition.trEmail}</TableCell>
+                                                    <TableCell align="left">{tuition.timeFrom + " - " + tuition.timeTo}</TableCell>
                                                 </TableRow>
                                                 <TableRow key={5}>
                                                     <TableCell>
                                                         <b>Address</b>
                                                     </TableCell>
                                                     <TableCell align="left">{tuition.trAddress}</TableCell>
+                                                </TableRow>
+                                                <TableRow key={3}>
+                                                    <TableCell>
+                                                        <b>Posted At</b>
+                                                    </TableCell>
+                                                    <TableCell align="left">{tuition.trPostedAt}</TableCell>
                                                 </TableRow>
                                             </TableBody>
                                         </Table>

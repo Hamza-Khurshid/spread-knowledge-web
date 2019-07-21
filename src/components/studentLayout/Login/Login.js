@@ -17,19 +17,25 @@ class Login extends Component {
         }
     }
 
+    onTextChange = (event) => {
+        this.setState({
+            [event.target.name]: event.target.value
+        })
+    }
+
     loginHandler = (e) => {
         e.preventDefault();
 
         let email = this.state.email;
         let password = this.state.password;
 
-        if(email == "" || password == "") {
+        if(email === "" || password === "") {
             alert("No empty field allowed!");
         } else {
             let students = this.props.students;
             students = students.filter( t => t.email == email && t.password == password );
             if(students.length > 0) {
-                localStorage.setItem("authUser", JSON.stringify(students[0]));
+                localStorage.setItem("authStudent", JSON.stringify(students[0]));
                 this.props.history.push("/StudentDashboard");
             } else {
                 alert("Incorrect credentials!")
@@ -58,18 +64,22 @@ class Login extends Component {
                                 <MDBInput
                                     label="Your email"
                                     icon="envelope"
+                                    name='email'
                                     group
                                     type="email"
                                     validate
                                     error="wrong"
                                     success="right"
+                                    onChange={(event) => this.onTextChange(event)}
                                 />
                                 <MDBInput
                                     label="Your password"
                                     icon="lock"
+                                    name='password'
                                     group
                                     type="password"
                                     validate
+                                    onChange={(event) => this.onTextChange(event)}
                                 />
 
                             </div>
