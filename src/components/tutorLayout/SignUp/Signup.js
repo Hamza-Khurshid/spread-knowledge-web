@@ -8,10 +8,10 @@ import toastr from 'toastr';
 class SignUp extends Component {
     state= {
         radio: 1,
-        username: 'Hamza',
-        email: 'hamza@gmaill.com',
-        password: 'hamza123',
-        imgURL: 'imgurl'
+        username: '',
+        email: '',
+        password: '',
+        imgURL: ''
     }
 
     componentWillMount() {

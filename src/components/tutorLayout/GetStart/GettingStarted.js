@@ -11,20 +11,21 @@ class TutorGetStart extends React.Component {
     formActivePanel1: 1,
     formActivePanel1Changed: false,
     
-    tCity: 'Lahore',
-    tAddress: 'zcx',
-    tPhone: 'zc',
-    tDegreeL: 'Intermediate',
-    tDegreeT: 'zc',
-    eDegreeL: 'Matric',
-    eDegreeT: 'sdsd',
-    wttDegreeL: 'Matric',
-    wttDegreeT: 'sd',
-    subject1: 'sdsdsd',
-    subject2: 'sdsd',
-    subject3: 'sdsd',
-    fFrom: '1500',
-    fTo: '3000'
+    tCity: '',
+    tAddress: '',
+    tPhone: '',
+    tDegreeL: '',
+    tDegreeT: '',
+    eDegreeL: '',
+    eDegreeT: '',
+    wttDegreeL: '',
+    wttDegreeT: '',
+    subject1: '',
+    subject2: '',
+    subject3: '',
+    fFrom: '',
+    fTo: '',
+    tAbout: ''
   }
 
   swapFormActive = (a) => (param) => (e) => {
@@ -57,13 +58,14 @@ class TutorGetStart extends React.Component {
     let subject3 = this.state.subject3;
     let fFrom = this.state.fFrom;
     let fTo = this.state.fTo;
+    let tAbout = this.state.tAbout;
     let tName = localStorage.getItem("username");
     let tEmail = localStorage.getItem("email");
     let tPassword = localStorage.getItem("password");
     let tGender = localStorage.getItem("gender");
     let imgURL = "https://i.ibb.co/1swJS3Z/daniel.jpg";
 
-    if (tCity===""||tAddress===""||tPhone===""||tDegreeL===""||tDegreeT===""||eDegreeL===""||eDegreeT===""||wttDegreeL===""||wttDegreeT===""||subject1===""||subject2===""||subject3===""||fFrom===""||fTo==="") {
+    if (tCity===""||tAddress===""||tPhone===""||tAbout===""||tDegreeL===""||tDegreeT===""||eDegreeL===""||eDegreeT===""||wttDegreeL===""||wttDegreeT===""||subject1===""||subject2===""||subject3===""||fFrom===""||fTo==="") {
       alert("No empty field allowed!");
     } else {
       var tutotInfo = {
@@ -72,6 +74,7 @@ class TutorGetStart extends React.Component {
         tEmail,
         tPassword,
         tGender,
+        tAbout,
         imgURL,
         tCity,
         tAddress,
@@ -198,6 +201,20 @@ class TutorGetStart extends React.Component {
                             group
                             type="text"
                             validate
+                            error="wrong"
+                            success="right"
+                          />
+                          <MDBInput
+                            label="About Yourself"
+                            name="tAbout"
+                            icon="user"
+                            value={this.state.tAbout}
+                            onChange={(event) => this.onTextChange("tAbout", event)}
+                            group
+                            multiline
+                            type="text"
+                            validate
+                            rowsMax='6'
                             error="wrong"
                             success="right"
                           />

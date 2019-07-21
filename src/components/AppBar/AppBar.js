@@ -177,7 +177,7 @@ class MyAppBar extends React.Component {
                 <SearchIcon />
               </div>
               <InputBase
-                placeholder="Search by Name, City"
+                placeholder="Search by Name/City/Degree"
                 value={this.props.searchQuery}
                 onChange={(event) => this.props.searchTextChangeHandler(event)}
                 classes={{
@@ -188,7 +188,7 @@ class MyAppBar extends React.Component {
             </div>
             <div className={classes.grow} />
             <div className={classes.sectionDesktop}>
-              <IconButton color="inherit">
+              {/* <IconButton color="inherit">
                 <Badge badgeContent={4} color="secondary">
                   <MailIcon />
                 </Badge>
@@ -205,12 +205,12 @@ class MyAppBar extends React.Component {
                 color="inherit"
               >
                 <AccountCircle />
-              </IconButton>
+              </IconButton> */}
             </div>
             <div className={classes.sectionMobile}>
-              <IconButton aria-haspopup="true" onClick={this.handleMobileMenuOpen} color="inherit">
+              {/* <IconButton aria-haspopup="true" onClick={this.handleMobileMenuOpen} color="inherit">
                 <MoreIcon />
-              </IconButton>
+              </IconButton> */}
             </div>
           </Toolbar>
         </AppBar>

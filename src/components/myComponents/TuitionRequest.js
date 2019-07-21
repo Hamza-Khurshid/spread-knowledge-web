@@ -180,7 +180,7 @@ class TuitionRequest extends Component {
                                 multiline
                                 onChange={(event) => this.textChangeHandler(event)}
                                 variant='outlined'
-                                rowsMax="6"
+                                rowsMax="10"
                             />
                             <TextField
                                 margin="dense"

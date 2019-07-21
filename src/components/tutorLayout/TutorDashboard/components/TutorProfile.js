@@ -47,10 +47,7 @@ class CardExample extends Component {
                             <MDBCardBody>
                                 <MDBCardTitle tag="h5">{tutor.tName}</MDBCardTitle>
                                 <MDBCardText style={{ textAlign: 'justify' }}>
-                                    Being a data scientist I'm responsible for data extraction, management,
-                                    manipulation and implementation.
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-                                    malesuada lacus ex, sit amet blandit leo lobortis eget.
+                                    {tutor.tAbout}
                                 </MDBCardText>
                                 <Link to={{ pathname: `/EditTutorProfile/${tutor.id}`, 
                                         query: {

@@ -35,6 +35,7 @@ class Login extends Component {
             let students = this.props.students;
             students = students.filter( t => t.email == email && t.password == password );
             if(students.length > 0) {
+                localStorage.clear();
                 localStorage.setItem("authStudent", JSON.stringify(students[0]));
                 this.props.history.push("/StudentDashboard");
             } else {

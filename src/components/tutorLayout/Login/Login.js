@@ -29,6 +29,7 @@ class Login extends Component {
             let tutors = this.props.tutors;
             tutors = tutors.filter( t => t.tEmail == email && t.tPassword == password );
             if(tutors.length > 0) {
+                localStorage.clear();
                 localStorage.setItem("authUser", JSON.stringify(tutors[0]));
                 this.props.history.push("/TutorDashboard");
             } else {

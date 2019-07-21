@@ -7,6 +7,8 @@ class MyTuitionRequests extends Component {
 
     render() {
         let {tuitions} = this.props;
+        let student = JSON.parse(localStorage.getItem('authStudent'));
+        tuitions = tuitions.filter( t => t.trSenderId ===  student._id)
 
         return (
             <div>

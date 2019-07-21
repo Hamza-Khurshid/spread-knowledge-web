@@ -4,6 +4,7 @@ export const GET_TUITION_REQ = "GET_TUITION_REQ";
 export const DELETE_TUITION_REQ = "DELETE_TUITION_REQ";
 
 export function addTuitionRequest(data) {
+    alert('Tuition request sent successfully!')
     return {
         type: ADD_TUITION_REQ,
         data: data

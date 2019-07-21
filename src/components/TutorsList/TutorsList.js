@@ -46,7 +46,9 @@ class TutorsList extends Component {
     return function(tutor) {
       return (
         tutor.tName.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        tutor.tCity.toLowerCase().includes(searchQuery.toLowerCase()) || !searchQuery
+        tutor.tCity.toLowerCase().includes(searchQuery.toLowerCase()) || 
+        tutor.tDegreeL.toLowerCase().includes(searchQuery.toLowerCase()) || 
+        tutor.tDegreeT.toLowerCase().includes(searchQuery.toLowerCase()) || !searchQuery
       );
     };
   };
@@ -74,18 +76,15 @@ class TutorsList extends Component {
               <TutorDetails tutor={tutor} style={{width: '100%'}}/>
           </ExpansionPanelDetails>
             <Typography className={classes.para}>
-              Being a data scientist I'm responsible for data extraction, management, 
-              manipulation and implementation.
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-              malesuada lacus ex, sit amet blandit leo lobortis eget.
+              {tutor.tAbout}
             </Typography>
         </ExpansionPanel>
 
       ) )}
       </div>
-       : <span className={classes.text}><h4>No match found! </h4> </span> }
+       : <span style={{marginTop: 25}} className={classes.text}><h4>No match found! </h4> </span> }
       </div>
-      : <span className={classes.text}> <h3>No tutor found!</h3> </span> }
+      : <span style={{marginTop: 25}} className={classes.text}> <h3>No tutor found!</h3> </span> }
     </div>
   );
 }

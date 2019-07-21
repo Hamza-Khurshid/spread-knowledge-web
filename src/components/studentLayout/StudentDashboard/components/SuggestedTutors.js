@@ -49,7 +49,6 @@ class TutorsList extends Component {
 
   render() {
   const { classes,tutors } = this.props;
-  console.log(this.props.tutors);
   
   return (
     <div className={classes.root}>
@@ -71,10 +70,7 @@ class TutorsList extends Component {
               <SimpleTable tutor={tutor} style={{width: '100%'}}/>
           </ExpansionPanelDetails>
             <Typography className={classes.para}>
-              Being a data scientist I'm responsible for data extraction, management, 
-              manipulation and implementation.
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-              malesuada lacus ex, sit amet blandit leo lobortis eget.
+              {tutor.tAbout}
             </Typography>
         </ExpansionPanel>
 

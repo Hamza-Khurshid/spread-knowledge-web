@@ -115,7 +115,7 @@ class MyAppBar extends React.Component {
 
   render() {
     const { anchorEl, mobileMoreAnchorEl } = this.state;
-    const { classes, } = this.props;
+    const { classes, searchQuery } = this.props;
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
@@ -174,9 +174,10 @@ class MyAppBar extends React.Component {
                 <SearchIcon />
               </div>
               <InputBase
-                placeholder="Search by Name"
-                // value={this.props.searchQuery}
-                // onChange={(event) => this.props.searchTextChangeHandler(event)}
+                placeholder="Search by Name/City/Degree"
+                name='searchQuery'
+                value={this.props.searchQuery}
+                onChange={(event) => this.props.textChangeHandler(event)}
                 classes={{
                   root: classes.inputRoot,
                   input: classes.inputInput,
