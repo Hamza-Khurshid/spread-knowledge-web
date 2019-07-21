@@ -3,7 +3,8 @@ import { ADD_TUITION_REQ, EDIT_TUITION_REQ, GET_TUITION_REQ, DELETE_TUITION_REQ 
 var initState = {
     tuitions: [
         {
-            trSenderId: '004100d0d0fdf0fd',
+            id: '7d1sd5sd1sd2d4s2',
+            trSenderId: '00dfdfx71sfdf014',
             trCity: 'Toba Tek Singh',
             trAddress: 'Perrha, Toba Tek Singh',
             trClass: '15',
@@ -15,7 +16,8 @@ var initState = {
             timeTo: '11:00 AM'
         },
         {
-            trSenderId: '00dfdfx71sfdf014',
+            id: '1sddssd23sdd56ds45',
+            trSenderId: '004100d0d0fdf0fd',
             trCity: 'Sahiwal',
             trClass: '12',
             trAddress: 'Perrha, Toba Tek Singh',
@@ -27,6 +29,7 @@ var initState = {
             timeTo: '05:00 PM'
         },
         {
+            id: '4ds4sddscsddsc11ew',
             trSenderId: '00dfdfd0d0qpa10',
             trCity: 'Lahore',
             trClass: '13',
