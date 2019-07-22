@@ -49,7 +49,7 @@ class CardExample extends Component {
                                 <MDBCardText style={{ textAlign: 'justify' }}>
                                     {tutor.tAbout}
                                 </MDBCardText>
-                                <Link to={{ pathname: `/EditTutorProfile/${tutor.id}`, 
+                                <Link to={{ pathname: `/EditTutorProfile/${tutor._id}`, 
                                         query: {
                                             tutor
                                         }}} >
@@ -105,7 +105,7 @@ class CardExample extends Component {
                                                 <TableCell>
                                                     <b>Fee Range</b>
                                                 </TableCell>
-                                                <TableCell align="left">Rs. {tutor.fTo + " of " + tutor.fFrom}</TableCell>
+                                                <TableCell align="left">Rs. {tutor.fFrom + " - " + tutor.fTo}</TableCell>
                                             </TableRow>
                                             <TableRow key={6}>
                                                 <TableCell>

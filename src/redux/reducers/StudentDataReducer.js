@@ -71,7 +71,7 @@ export default function studentDataReducer(state = initState, action) {
         case UPDATE_STUDENT:
         {
             let students = state.students.map( student => {
-                if(student._id === action.data.id) {
+                if(student._id === action.data._id) {
                     return action.data
                 } else {
                     return student

@@ -88,7 +88,7 @@ class StudentProfile extends Component {
             student = JSON.parse(student);
 
             let tuitionRequest = {
-                id: this.guidGenerator(),
+                _id: this.guidGenerator(),
                 trSenderId: student._id,
                 trPostedAt: moment().format('DD-MMM-YYYY'),
                 trClass,

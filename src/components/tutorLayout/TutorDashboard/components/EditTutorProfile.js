@@ -92,7 +92,7 @@ class EditTutorProfile extends Component {
     };
 
     updateHandler = () => {
-        let { id, tGender, imgURL, name, email, password, phone, city, address, tDegreeL, 
+        let { _id, tGender, imgURL, name, email, password, phone, city, address, tDegreeL, 
             tDegreeT, eDegreeL, eDegreeT, wttDegreeL, wttDegreeT, 
             subject1, subject2, subject3, feeFrom, feeTo  } = this.state;
 
@@ -100,7 +100,7 @@ class EditTutorProfile extends Component {
             alert("No empty field allowed!");
         } else {
             var tutorInfo = {
-                id,
+                _id,
                 tName: name,
                 tEmail: email,
                 tPassword: password,

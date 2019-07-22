@@ -67,9 +67,9 @@ class TuitionRequest extends Component {
             tutor = JSON.parse(tutor);
 
             let tuitionProposal = {
-                id: this.guidGenerator(),
-                tutorID: tutor.id,
-                tuitionID: this.props.tuition.id,
+                _id: this.guidGenerator(),
+                tutorID: tutor._id,
+                tuitionID: this.props.tuition._id,
                 description,
                 fee
             }

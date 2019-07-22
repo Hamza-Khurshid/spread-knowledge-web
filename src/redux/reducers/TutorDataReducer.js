@@ -1,14 +1,9 @@
-import { ADD_TUTOR, EDIT_TUTOR, GET_TUTOR, DELETE_TUTOR, UPDATE_TUTOR } from '../actions/TutorDataAction';
-
-//imgURL: "https://i.ibb.co/Hhhr5XW/38674381-909016475952869-9216475105356414976-n-Copy.jpg"
-// https://i.ibb.co/gzkFHJ9/faiz-mustafa.jpg
-//https://i.ibb.co/1swJS3Z/daniel.jpg
-
+import { ADD_TUTOR, EDIT_TUTOR, GET_ALL_TUTORS, GET_ALL_TUTORS_ERR, GET_TUTOR, DELETE_TUTOR, UPDATE_TUTOR } from '../actions/TutorDataAction';
 
 var initState = {
     tutors: [
         {
-            id: '00dfdfd0d0fdf0fd',
+            _id: '00dfdfd0d0fdf0fd',
             tName: 'Faizan Mustafa',
             tEmail: 'faizan@gmail.com',
             tPassword: 'faizan123',
@@ -31,7 +26,7 @@ var initState = {
             fTo: '10500'
         },
         {
-            id: '00dfdfd0d0fdf014',
+            _id: '00dfdfd0d0fdf014',
             tName: 'Sajawal Nadeem',
             tEmail: 'sajawal@gmail.com',
             tPassword: 'sajawal123',
@@ -54,7 +49,7 @@ var initState = {
             fTo: '5500'
         },
         {
-            id: '00dfdfd0d0fdf000',
+            _id: '00dfdfd0d0fdf000',
             tName: 'Hamza Khurshid',
             tEmail: 'hamza@gmail.com',
             tPassword: 'hamza123',
@@ -76,11 +71,33 @@ var initState = {
             fFrom: '4500',
             fTo: '7500'
         },
-    ]
+    ],
+    getAllTutorsStatus: 'not done',
 };
 
 export default function tutorDataReducer(state = initState, action) {
     switch (action.type) {
+
+        case GET_ALL_TUTORS:
+        {
+            console.log("TUTORS TRDUCER:", action.data)
+            return {
+                ...state,
+                tutors: action.data,
+                getAllTutorsStatus: 'done'
+            }
+
+        }
+
+        case GET_ALL_TUTORS_ERR:
+        {
+            return {
+                ...state,
+                getAllTutorsStatus: 'error'
+            }
+
+        }
+
         case ADD_TUTOR:
         {
             let tutors = state.tutors;
@@ -106,7 +123,7 @@ export default function tutorDataReducer(state = initState, action) {
         case UPDATE_TUTOR:
         {
             let tutors = state.tutors.map( tutor => {
-                if(tutor.id === action.data.id) {
+                if(tutor._id === action.data._id) {
                     return action.data
                 } else {
                     return tutor

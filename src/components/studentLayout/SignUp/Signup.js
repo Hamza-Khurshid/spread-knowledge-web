@@ -45,7 +45,7 @@ class SignUp extends Component {
             }
 
             let student  = {
-                id: this.guidGenerator(),
+                _id: this.guidGenerator(),
                 name: username,
                 email,
                 password,
@@ -53,7 +53,7 @@ class SignUp extends Component {
             }
 
             this.props.history.push({ 
-                pathname: `/StudentGetStarted/${student.id}`,
+                pathname: `/StudentGetStarted/${student._id}`,
                 state: { student }
             });
         }

@@ -56,7 +56,7 @@ class EditStudentProfile extends Component {
         let student = this.props.location.query.student;
         if(student) {
             this.setState({
-                _id: student.id,
+                _id: student._id,
                 name: student.name,
                 email: student.email,
                 password: student.password,

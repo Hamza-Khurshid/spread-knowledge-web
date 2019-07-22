@@ -10,6 +10,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import TutorHeader from './components/TutorHeader';
 import TutorDetails from './components/TutorDetails';
 import { connect } from 'react-redux';
+import { getAllTutors } from '../../redux/actions/TutorDataAction';
 
 const styles = theme => ({
   root: {
@@ -37,9 +38,22 @@ const styles = theme => ({
 });
 
 class TutorsList extends Component {
+  state = {
+    tutors: [],
+    loader: true
+  }
 
   componentDidMount() {
-    console.log("======MAIN SCREEN=========", this.props.tutors);
+    this.props.getAllTutors();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if(nextProps.getAllTutorsStatus) {
+      this.setState({
+        tutors: nextProps.tutors, 
+        loader: false
+      })
+    }
   }
 
   searchingForName = searchQuery => {
@@ -55,36 +69,45 @@ class TutorsList extends Component {
 
 
   render() {
-  const { classes, tutors } = this.props;
+    const { classes} = this.props;
+    let { tutors, loader } = this.state;
+
   return (
     <div className={classes.root}>
-      { tutors.length > 0 ?
-      <div>
-        { tutors.filter(this.searchingForName(this.props.searchQuery)).length > 0 ? 
+      {
+        loader ? 
         <div>
-       {tutors.filter(this.searchingForName(this.props.searchQuery)).map( tutor => (
+          <h3>Loading...</h3>
+        </div>
+        :
+        tutors.length > 0 ?
+        <div>
+          { tutors.filter(this.searchingForName(this.props.searchQuery)).length > 0 ? 
+          <div>
+        {tutors.filter(this.searchingForName(this.props.searchQuery)).map( tutor => (
 
-        <ExpansionPanel
-          style={{ marginBottom: '5px', marginTop: '5px', marginLeft: "auto", marginRight: "auto" }}
-        >
-          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-            <Typography className={classes.heading}>
-              <TutorHeader tutor={tutor} />
-            </Typography>
-          </ExpansionPanelSummary>
-          <ExpansionPanelDetails>
-              <TutorDetails tutor={tutor} style={{width: '100%'}}/>
-          </ExpansionPanelDetails>
-            <Typography className={classes.para}>
-              {tutor.tAbout}
-            </Typography>
-        </ExpansionPanel>
+          <ExpansionPanel
+            style={{ marginBottom: '5px', marginTop: '5px', marginLeft: "auto", marginRight: "auto" }}
+          >
+            <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+              <Typography className={classes.heading}>
+                <TutorHeader tutor={tutor} />
+              </Typography>
+            </ExpansionPanelSummary>
+            <ExpansionPanelDetails>
+                <TutorDetails tutor={tutor} style={{width: '100%'}}/>
+            </ExpansionPanelDetails>
+              <Typography className={classes.para}>
+                {tutor.tAbout}
+              </Typography>
+          </ExpansionPanel>
 
-      ) )}
-      </div>
-       : <span style={{marginTop: 25}} className={classes.text}><h4>No match found! </h4> </span> }
-      </div>
-      : <span style={{marginTop: 25}} className={classes.text}> <h3>No tutor found!</h3> </span> }
+        ) )}
+        </div>
+        : <span style={{marginTop: 25}} className={classes.text}><h4>No match found! </h4> </span> }
+        </div>
+        : <span style={{marginTop: 25}} className={classes.text}> <h3>No tutor found!</h3> </span> }
+      }
     </div>
   );
 }
@@ -94,10 +117,11 @@ TutorsList.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = (store) => {
+const mapStateToProps = (state) => {
   return {
-    tutors: store.tutorDataReducer.tutors
-  } 
+    tutors: state.tutorDataReducer.tutors,
+    getAllTutorsStatus: state.tutorDataReducer.getAllTutorsStatus
+  }
 }
 
-export default withStyles(styles)(connect(mapStateToProps)(TutorsList));
+export default withStyles(styles)(connect(mapStateToProps, { getAllTutors })(TutorsList));

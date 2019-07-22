@@ -42,7 +42,7 @@ class GetStarted extends Component {
     signUpHandler = (e) => {
         e.preventDefault();
 
-        let { id, name, email, password, gender } = this.props.location.state.student;
+        let { _id, name, email, password, gender } = this.props.location.state.student;
         let { city, address, sClass, subject1, subject2, subject3 } = this.state;
 
         let allEmpty = false;
@@ -62,7 +62,7 @@ class GetStarted extends Component {
             } else {
     
                 let student  = {
-                    id,
+                    _id,
                     name,
                     email,
                     password,
