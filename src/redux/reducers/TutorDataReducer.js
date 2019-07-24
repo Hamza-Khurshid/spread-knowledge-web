@@ -1,4 +1,5 @@
-import { ADD_TUTOR, EDIT_TUTOR, GET_ALL_TUTORS, GET_ALL_TUTORS_ERR, GET_TUTOR, DELETE_TUTOR, UPDATE_TUTOR } from '../actions/TutorDataAction';
+import { ADD_TUTOR, EDIT_TUTOR, GET_ALL_TUTORS, GET_ALL_TUTORS_ERR, GET_TUTOR, DELETE_TUTOR, UPDATE_TUTOR, UPDATE_TUTOR_ERR } from '../actions/TutorDataAction';
+import { EndPoint } from '../../EndPoint/EndPoint';
 
 var initState = {
     tutors: [
@@ -73,6 +74,7 @@ var initState = {
         },
     ],
     getAllTutorsStatus: 'not done',
+    updateTutorStatus: 'not done'
 };
 
 export default function tutorDataReducer(state = initState, action) {
@@ -80,7 +82,6 @@ export default function tutorDataReducer(state = initState, action) {
 
         case GET_ALL_TUTORS:
         {
-            console.log("TUTORS TRDUCER:", action.data)
             return {
                 ...state,
                 tutors: action.data,
@@ -101,7 +102,9 @@ export default function tutorDataReducer(state = initState, action) {
         case ADD_TUTOR:
         {
             let tutors = state.tutors;
-            tutors = tutors.concat(action.data);
+            let tutor = action.data;
+            tutors = tutors.concat(tutor);
+            console.log("TUTORS RED", tutors);
             
             return {
                 ...state,
@@ -131,11 +134,21 @@ export default function tutorDataReducer(state = initState, action) {
             });
             return {
                 ...state,
-                tutors
+                tutors,
+                updateTutorStatus: 'done'
+            }
+
+        }
+
+        case UPDATE_TUTOR_ERR:
+        {
+            return {
+                ...state,
+                updateTutorStatus: 'error'
             }
 
         }    
-    
+        
         default:
             return state;
     }

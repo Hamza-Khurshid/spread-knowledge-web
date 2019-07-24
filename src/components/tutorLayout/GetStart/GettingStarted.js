@@ -11,21 +11,36 @@ class TutorGetStart extends React.Component {
     formActivePanel1: 1,
     formActivePanel1Changed: false,
     
-    tCity: '',
-    tAddress: '',
-    tPhone: '',
-    tDegreeL: '',
-    tDegreeT: '',
-    eDegreeL: '',
-    eDegreeT: '',
-    wttDegreeL: '',
-    wttDegreeT: '',
-    subject1: '',
-    subject2: '',
-    subject3: '',
-    fFrom: '',
-    fTo: '',
-    tAbout: ''
+    tCity: 'Lahore',
+    tAddress: 'Model town B',
+    tPhone: '030185965230',
+    tDegreeL: 'Bachelors',
+    tDegreeT: 'CS',
+    eDegreeL: 'Intermediate',
+    eDegreeT: 'CS',
+    wttDegreeL: 'Bachelors',
+    wttDegreeT: 'CS',
+    subject1: 'AI',
+    subject2: 'SE1',
+    subject3: 'SE2',
+    fFrom: '4500',
+    fTo: '6500',
+    tAbout: 'sdfjskdfjsd sdkfjksdjf dskjfhsdjkfbs dfkjsdfmnsd ckjw.',
+    tName: 'Ali',
+    tEmail: 'ali@gmail.com',
+    tPassword: 'ali123',
+    tGender: 'male',
+    imgURL: ''
+  }
+
+  componentWillMount() {
+    this.setState({
+      tName: this.props.location.state.username,
+      tEmail: this.props.location.state.email,
+      tPassword: this.props.location.state.password,
+      tGender: this.props.location.state.gender,
+      imgURL: this.props.location.state.imgURL
+    })
   }
 
   swapFormActive = (a) => (param) => (e) => {
@@ -33,6 +48,13 @@ class TutorGetStart extends React.Component {
       ['formActivePanel' + a]: param,
       ['formActivePanel' + a + 'Changed']: true
     });
+  }
+
+  guidGenerator = () => {
+      var S4 = function() {
+         return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
+      };
+      return (S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4());
   }
 
   handleNextPrevClick = (a) => (param) => (e) => {
@@ -43,7 +65,7 @@ class TutorGetStart extends React.Component {
   }
 
   handleSubmission = () => {
-    let _id = Math.random();
+    let _id = this.guidGenerator();
     let tCity = this.state.tCity;
     let tAddress = this.state.tAddress;
     let tPhone = this.state.tPhone;
@@ -59,11 +81,11 @@ class TutorGetStart extends React.Component {
     let fFrom = this.state.fFrom;
     let fTo = this.state.fTo;
     let tAbout = this.state.tAbout;
-    let tName = localStorage.getItem("username");
-    let tEmail = localStorage.getItem("email");
-    let tPassword = localStorage.getItem("password");
-    let tGender = localStorage.getItem("gender");
-    let imgURL = "https://i.ibb.co/1swJS3Z/daniel.jpg";
+    let tName = this.state.tName;
+    let tEmail = this.state.tEmail;
+    let tPassword = this.state.tPassword;
+    let tGender = this.state.tGender;
+    let imgURL = this.state.imgURL;
 
     if (tCity===""||tAddress===""||tPhone===""||tAbout===""||tDegreeL===""||tDegreeT===""||eDegreeL===""||eDegreeT===""||wttDegreeL===""||wttDegreeT===""||subject1===""||subject2===""||subject3===""||fFrom===""||fTo==="") {
       alert("No empty field allowed!");
@@ -93,8 +115,8 @@ class TutorGetStart extends React.Component {
       }
 
       this.props.addTutor(tutotInfo);
-      localStorage.setItem("authUser", JSON.stringify(tutotInfo));
-      this.props.history.push('/TutorDashboard')
+      // localStorage.setItem("authUser", JSON.stringify(tutotInfo));
+      // this.props.history.push('/TutorDashboard');
     }
   }
 
@@ -238,7 +260,7 @@ class TutorGetStart extends React.Component {
                               <option value="Middle">Middle</option>
                               <option value="Matric">Matric</option>
                               <option value="Intermediate">Intermediate</option>
-                              <option value="Becholars">Becholars</option>
+                              <option value="Bachelors">Bachelors</option>
                               <option value="Masters">Masters</option>
                               <option value="Doctoral">Doctoral</option>
                             </select>
@@ -264,7 +286,7 @@ class TutorGetStart extends React.Component {
                               <option value="Middle">Middle</option>
                               <option value="Matric">Matric</option>
                               <option value="Intermediate">Intermediate</option>
-                              <option value="Becholars">Becholars</option>
+                              <option value="Bachelors">Bachelors</option>
                               <option value="Masters">Masters</option>
                               <option value="Doctoral">Doctoral</option>
                             </select>
@@ -305,7 +327,7 @@ class TutorGetStart extends React.Component {
                               <option value="Middle">Middle</option>
                               <option value="Matric">Matric</option>
                               <option value="Intermediate">Intermediate</option>
-                              <option value="Becholars">Becholars</option>
+                              <option value="Bachelors">Bachelors</option>
                               <option value="Masters">Masters</option>
                               <option value="Doctoral">Doctoral</option>
                             </select>

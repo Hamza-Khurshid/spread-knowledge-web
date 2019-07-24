@@ -8,6 +8,8 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import Icon, { AntDesign, Zocial } from 'react-web-vector-icons';
+import  { EndPoint } from '../../../EndPoint/EndPoint';
+
 require('react-web-vector-icons/fonts');
 
 const useStyles = theme => ({
@@ -32,7 +34,7 @@ function TutorHeader(props) {
     <List className={classes.root}>
       <ListItem alignItems="flex-start" className="listItem">
           <ListItemAvatar style={{height: 100, width: 100 }}>
-            <Avatar alt="Profile Picture" src={tutor.imgURL} />
+            <Avatar alt="Profile Picture" src={ tutor.imgURL.includes('imgURL') ? EndPoint+ "/" +tutor.imgURL : tutor.imgURL } />
           </ListItemAvatar>
         <span alignSelf="center" style={{ marginTop: 20, marginLeft: 25 }}>
           <ListItemText

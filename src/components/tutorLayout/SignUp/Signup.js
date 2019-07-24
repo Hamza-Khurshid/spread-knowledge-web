@@ -8,9 +8,9 @@ import toastr from 'toastr';
 class SignUp extends Component {
     state= {
         radio: 1,
-        username: '',
-        email: '',
-        password: '',
+        username: 'Ali',
+        email: 'ali@gmail.com',
+        password: 'ali123',
         imgURL: ''
     }
 
@@ -56,13 +56,10 @@ class SignUp extends Component {
                 username,
                 email,
                 password,
-                gender
+                gender,
+                imgURL
             }
-            localStorage.setItem("username", username);
-            localStorage.setItem("email", email);
-            localStorage.setItem("password", password);
-            localStorage.setItem("gender", gender);
-            this.props.history.push('/TutorGetStart');
+            this.props.history.push({pathname: `/TutorGetStart/${username}`, state: {username, email, password, gender, imgURL}});
         }
     }
 
@@ -73,7 +70,7 @@ class SignUp extends Component {
         }
         fileReader.readAsText(event.target.files[0]); 
         console.log(event.target.files[0]);
-        this.setState({imgURL: event.target.files[0].name});
+        this.setState({imgURL: event.target.files[0]});
     }
 
     render() {

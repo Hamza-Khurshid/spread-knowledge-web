@@ -17,11 +17,10 @@ class TutorDashboard extends Component {
   }
 
   componentWillMount() {
-    let user = localStorage.getItem("username");
-    let email = localStorage.getItem("email");
-    let password = localStorage.getItem("password");
-    let gender = localStorage.getItem("gender");
-    console.log("username", user, email, password, gender);
+    let auth = localStorage.getItem('userType');
+    if(auth !== 'tutor') {
+      this.props.history.push('/TutorLogin');
+    }
   }
 
   toggleDrawer = (open) => event => {
@@ -41,24 +40,22 @@ class TutorDashboard extends Component {
     })
   }
 
-  render() { 
-    let tutor = localStorage.getItem("authUser");
-    tutor = JSON.parse(tutor);   
-  return (
-    <div className="App">
+  render() {
+
+    return (
+      <div className="App">
         <AppBar toggleDrawer={this.toggleDrawer} />
         <TutorProfile tutors={this.props.tutors} />
         <Drawer toggleDrawer={this.toggleDrawer} state={this.state.left} />
-
-    </div>
-  );
-}
+      </div>
+    );
+  }
 }
 
 const mapStateToProps = (store) => {
-    return {
-      tutors: store.tutorDataReducer.tutors
-    } 
+  return {
+    tutors: store.tutorDataReducer.tutors
   }
+}
 
 export default connect(mapStateToProps)(TutorDashboard);

@@ -6,6 +6,7 @@ import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import { HashLoader } from 'react-spinners';
 
 import TutorHeader from './components/TutorHeader';
 import TutorDetails from './components/TutorDetails';
@@ -48,9 +49,15 @@ class TutorsList extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if(nextProps.getAllTutorsStatus) {
+    if(nextProps.getAllTutorsStatus === 'done') {
       this.setState({
         tutors: nextProps.tutors, 
+        loader: false
+      })
+    }
+
+    if(nextProps.getAllTutorsStatus === 'error') {
+      this.setState({
         loader: false
       })
     }
@@ -76,8 +83,11 @@ class TutorsList extends Component {
     <div className={classes.root}>
       {
         loader ? 
-        <div>
-          <h3>Loading...</h3>
+        <div style={{ marginTop: '35vh'}}>
+          <HashLoader 
+            color={'#AD9101'}
+            loading='true'
+          />
         </div>
         :
         tutors.length > 0 ?
@@ -102,11 +112,11 @@ class TutorsList extends Component {
               </Typography>
           </ExpansionPanel>
 
-        ) )}
+        ))}
         </div>
-        : <span style={{marginTop: 25}} className={classes.text}><h4>No match found! </h4> </span> }
+          : <span style={{marginTop: 25}} className={classes.text}><h4>No match found! </h4> </span> }
         </div>
-        : <span style={{marginTop: 25}} className={classes.text}> <h3>No tutor found!</h3> </span> }
+        : <span style={{marginTop: 25}} className={classes.text}> <h3>No tutor found!</h3> </span>
       }
     </div>
   );

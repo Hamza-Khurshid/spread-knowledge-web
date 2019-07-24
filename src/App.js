@@ -11,75 +11,90 @@ import TutorDashboard from './components/tutorLayout/TutorDashboard/TutorDashboa
 import TuitionRequests from './components/myComponents/TuitionRequests/TuitionRequests';
 import StudentDashboard from './components/studentLayout/StudentDashboard/StudentDashboard';
 
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
 import EditTutorProfile from './components/tutorLayout/TutorDashboard/components/EditTutorProfile';
 import GetStarted from './components/studentLayout/SignUp/GetStarted';
 import EditStudentProfile from './components/studentLayout/StudentDashboard/components/EditStudentProfile';
 import MyTuitionRequests from './components/studentLayout/TuitionRequests/MyTuitionRequests';
 import TutorTuitionRequests from './components/tutorLayout/TuitionRequests/TuitionRequests';
+import NoMatch from './components/myComponents/NoMatch';
 
 function App() {
   return (
     <Router>
-      <div className="App">
+    <Switch>
         <Route
           path='/'
           exact
           component={Home}
         />
         <Route
+          exact
           path='/TutorLogin'
           component={TutorLogin}
         />
         <Route
+          exact
           path='/StudentLogin'
           component={StudentLogin}
         />
         <Route
+          exact
           path='/StudentSignup'
           component={StudentSignUp}
         />
         <Route
+          exact
           path='/StudentGetStarted/:id'
           component={GetStarted}
         />
         <Route
+          exact
           path="/StudentDashboard"
           component={StudentDashboard}
         />
         <Route
+          exact
           path='/TutorSignup'
           component={TutorSignUp}
         />
         <Route
-          path='/TutorGetStart'
+          exact
+          path='/TutorGetStart/:username'
           component={TutorGetStart}
         />
         <Route
+          exact
           path="/TutorDashboard"
           component={TutorDashboard}
         />  
         <Route
+          exact
           path="/TuitionRequests"
           component={TuitionRequests}
         />  
         <Route
+          exact
           path="/EditTutorProfile/:id"
           component={EditTutorProfile}
         />  
         <Route
+          exact
           path="/TutorTuitionRequests"
           component={TutorTuitionRequests}
         />  
         <Route
+          exact
           path="/EditStudentProfile/:id"
           component={EditStudentProfile}
         />  
         <Route
+          exact
           path="/StudentTuitionRequests"
           component={MyTuitionRequests}
-        /> 
-      </div>
+        />  
+        <Route component={NoMatch} />
+    </Switch>
     </Router>
   );
 }

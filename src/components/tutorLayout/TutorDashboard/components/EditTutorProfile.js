@@ -18,6 +18,7 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core';
+import { HashLoader } from 'react-spinners';
 
 const styles = theme => ({
     root: {
@@ -40,14 +41,17 @@ const styles = theme => ({
 class EditTutorProfile extends Component {
 
     state = {
+        _id: '',
         name: '',
         email: '',
         password: '',
         phone: '',
         city: '',
         address: '',
+        imgURL: '',
         tDegreeL: '',
         tDegreeT: '',
+        tAbout: '',
         eDegreeL: '',
         eDegreeT: '',
         wttDegreeL: '',
@@ -59,31 +63,52 @@ class EditTutorProfile extends Component {
         feeTo: '',
 
         labelWidth: 0,
+        loader: true,
+        tutor: {}
+    }
+
+    componentWillMount() {
+        let auth = localStorage.getItem('userType');
+        if(auth !== 'tutor') {
+            this.props.history.push('/TutorLogin');
+        } else if(auth === 'tutor'){
+            this.setState({ loader: false })
+        }
     }
 
     componentDidMount() {
-        let tutor = this.props.location.query.tutor;
-        if(tutor) {
-            this.setState({
-                name: tutor.tName,
-                email: tutor.tEmail,
-                password: tutor.tPassword,
-                phone: tutor.tPhone,
-                city: tutor.tCity,
-                address: tutor.tAddress,
-                tDegreeL: tutor.tDegreeL,
-                tDegreeT: tutor.tDegreeT,
-                eDegreeL: tutor.eDegreeL,
-                eDegreeT: tutor.eDegreeT,
-                wttDegreeL: tutor.wttDegreeL,
-                wttDegreeT: tutor.wttDegreeT,
-                subject1: tutor.subject1,
-                subject2: tutor.subject2,
-                subject3: tutor.subject3,
-                feeFrom: tutor.fFrom,
-                feeTo: tutor.fTo,
-                labelWidth: ReactDOM.findDOMNode(this.InputLabelRef).offsetWidth,
-            })
+        let auth = localStorage.getItem('userType');
+        if(auth !== 'tutor') {
+            this.props.history.push('/TutorLogin');
+        } else if(auth === 'tutor'){
+            let tutor = this.props.location.query.tutor;
+            if(tutor) {
+                this.setState({
+                    _id: tutor._id,
+                    imgURL: tutor.imgURL,
+                    name: tutor.tName,
+                    email: tutor.tEmail,
+                    password: tutor.tPassword,
+                    phone: tutor.tPhone,
+                    city: tutor.tCity,
+                    tAbout: tutor.tAbout,
+                    tGender: tutor.tGender,
+                    address: tutor.tAddress,
+                    tDegreeL: tutor.tDegreeL,
+                    tDegreeT: tutor.tDegreeT,
+                    eDegreeL: tutor.eDegreeL,
+                    eDegreeT: tutor.eDegreeT,
+                    wttDegreeL: tutor.wttDegreeL,
+                    wttDegreeT: tutor.wttDegreeT,
+                    subject1: tutor.subject1,
+                    subject2: tutor.subject2,
+                    subject3: tutor.subject3,
+                    feeFrom: tutor.fFrom,
+                    feeTo: tutor.fTo,
+                    labelWidth: ReactDOM.findDOMNode(this.InputLabelRef).offsetWidth,
+                    loader: false
+                })
+            }
         }
     }
 
@@ -93,12 +118,18 @@ class EditTutorProfile extends Component {
 
     updateHandler = () => {
         let { _id, tGender, imgURL, name, email, password, phone, city, address, tDegreeL, 
-            tDegreeT, eDegreeL, eDegreeT, wttDegreeL, wttDegreeT, 
+            tDegreeT, eDegreeL, eDegreeT, wttDegreeL, wttDegreeT, tAbout, 
             subject1, subject2, subject3, feeFrom, feeTo  } = this.state;
 
-        if (name===""||email===""||password===""||city===""||address===""||phone===""||tDegreeL===""||tDegreeT===""||eDegreeL===""||eDegreeT===""||wttDegreeL===""||wttDegreeT===""||subject1===""||subject2===""||subject3===""||feeFrom===""||feeTo==="") {
+        let checkSubjects = false;
+        if(subject1==="" && subject2==="" && subject3==="") {
+            checkSubjects = true;
+        }
+
+        if (name===""||email===""||password===""||tAbout===""||city===""||address===""||phone===""||tDegreeL===""||tDegreeT===""||eDegreeL===""||eDegreeT===""||wttDegreeL===""||wttDegreeT===""||feeFrom===""|| checkSubjects ||feeTo==="") {
             alert("No empty field allowed!");
         } else {
+            this.setState({loader: true})
             var tutorInfo = {
                 _id,
                 tName: name,
@@ -106,6 +137,7 @@ class EditTutorProfile extends Component {
                 tPassword: password,
                 tGender,
                 imgURL,
+                tAbout,
                 tCity: city,
                 tAddress: address,
                 tPhone: phone,
@@ -121,16 +153,26 @@ class EditTutorProfile extends Component {
                 fFrom: feeFrom,
                 fTo: feeTo
             }
+            let token = localStorage.getItem('auth');
 
-            this.props.updateTutor(tutorInfo);
+            this.props.updateTutor({tutor: tutorInfo, token: JSON.parse(token)});
+        }
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if(nextProps.updateTutorStatus === "done") {
+            this.setState({ loader: false });
             this.props.history.push('/TutorDashboard');
+        }
+
+        if(nextProps.updateTutorStatus === "error") {
+            this.setState({ loader: false });
         }
     }
 
     render() {
         const { classes } = this.props;
-        let tutor = this.props.location.query.tutor;
-        console.log("PROPS:", tutor);
+        let { loader } = this.state;
 
         return (
             <Grid
@@ -141,7 +183,14 @@ class EditTutorProfile extends Component {
                 >
                 
                 <AppBarEditTutor title='Edit Profile' backLink='/TutorDashboard' />
-                
+            { loader ? 
+                <div style={{ marginTop: '35vh' }}>
+                    <HashLoader
+                        color={'#AD9101'}
+                        loading='true'
+                    />
+                </div>
+            :
                 <Paper style={{width: '85%', paddingTop: 30, paddingBottom: 20, paddingLeft: 30, paddingRight: 30, marginBottom: 10}}>
                     <TextField
                         id="standard-full-width"
@@ -451,14 +500,39 @@ class EditTutorProfile extends Component {
                         InputLabelProps={{
                             shrink: true,
                         }}
+                    />     
+                    
+                    <TextField
+                        id="standard-full-width"
+                        label="About Yourself"
+                        type='text'
+                        placeholder="About yourself"
+                        fullWidth
+                        multiline
+                        margin="normal"
+                        variant="outlined"
+                        name="tAbout"
+                        value={this.state.tAbout}
+                        onChange={this.handleChange}
+                        maxRows={6}
+                        InputLabelProps={{
+                            shrink: true,
+                        }}
                     />   
                     <Button onClick={() => this.updateHandler()} variant="contained" color="primary" className={classes.button}>
                       Update
                     </Button>  
                 </Paper>   
-
+            }
             </Grid>
         )
     }
 }
- export default connect(null, { updateTutor })(withStyles(styles)(EditTutorProfile));
+
+const mapState = (state) => {
+    return {
+        updateTutorStatus: state.tutorDataReducer.updateTutorStatus
+    }
+}
+
+ export default connect(mapState, { updateTutor })(withStyles(styles)(EditTutorProfile));
