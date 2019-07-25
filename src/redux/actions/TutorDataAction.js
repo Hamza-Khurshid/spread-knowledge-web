@@ -33,14 +33,20 @@ export function getAllTutors() {
       };
 }
 
-const addTutorSuc = (data) => ({
+const addTutorSuc = (data) => {
+    alert('Tutor created successfully!')
+    return {
         type: ADD_TUTOR,
-        data
-})
+        data: data.user
+    }
+}
 
-const addTutorFal = () => ({
-    type: ADD_TUTOR_ERR
-})  
+const addTutorFal = () => {
+    alert('Error creating tutor. Try again!')
+    return {
+        type: ADD_TUTOR_ERR
+    }
+}  
 
 export function addTutor(data) {
     const mydata = new FormData()
@@ -65,10 +71,9 @@ export function addTutor(data) {
     mydata.append("subject3", data.subject3);
     mydata.append("fFrom", data.fFrom);
     mydata.append("fTo", data.fTo);
-    console.log("Add TUTOR ACTION:", data)
     return(dispatch) => {
         axios.post(EndPoint + "/tutor/addTutor", mydata)
-          .then(res => dispatch(addTutorSuc(data)))
+          .then(res => dispatch(addTutorSuc(res.data)))
           .catch(err => dispatch(addTutorFal()))
       };
 }

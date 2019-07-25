@@ -58,6 +58,15 @@ function MainDrawer(props) {
           </ListItem>
         </Link>
         <Divider />
+        <Link to='/StudentProposals'>
+          <ListItem button key="1">
+            <ListItemIcon> 
+              <img src={require('../../../../assets/icons/proposal.png')} className={classes.icon} /> 
+            </ListItemIcon>
+            <ListItemText primary="Proposals" />
+          </ListItem>
+        </Link>
+        <Divider />
 
       </List>  
     </div>

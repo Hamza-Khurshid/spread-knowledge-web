@@ -4,6 +4,7 @@ import { CITIES } from '../../../constants/Constants';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { addTutor } from '../../../redux/actions/TutorDataAction';
+import { HashLoader } from 'react-spinners';
 
 class TutorGetStart extends React.Component {
 
@@ -25,12 +26,14 @@ class TutorGetStart extends React.Component {
     subject3: 'SE2',
     fFrom: '4500',
     fTo: '6500',
-    tAbout: 'sdfjskdfjsd sdkfjksdjf dskjfhsdjkfbs dfkjsdfmnsd ckjw.',
-    tName: 'Ali',
-    tEmail: 'ali@gmail.com',
-    tPassword: 'ali123',
+    tAbout: 'Aliya sdfjskdfjsd sdkfjksdjf dskjfhsdjkfbs dfkjsdfmnsd ckjw.',
+    tName: 'Aliya',
+    tEmail: 'aliya@gmail.com',
+    tPassword: 'aliya123',
     tGender: 'male',
-    imgURL: ''
+    imgURL: '',
+
+    loader: false
   }
 
   componentWillMount() {
@@ -90,6 +93,7 @@ class TutorGetStart extends React.Component {
     if (tCity===""||tAddress===""||tPhone===""||tAbout===""||tDegreeL===""||tDegreeT===""||eDegreeL===""||eDegreeT===""||wttDegreeL===""||wttDegreeT===""||subject1===""||subject2===""||subject3===""||fFrom===""||fTo==="") {
       alert("No empty field allowed!");
     } else {
+      this.setState({ loader: true })
       var tutotInfo = {
         _id,
         tName,
@@ -115,8 +119,17 @@ class TutorGetStart extends React.Component {
       }
 
       this.props.addTutor(tutotInfo);
-      // localStorage.setItem("authUser", JSON.stringify(tutotInfo));
-      // this.props.history.push('/TutorDashboard');
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if(nextProps.addTtutorStatus === "done" ) {
+      this.setState({ loader: false })
+      this.props.history.push('/TutorLogin');
+    }
+
+    if(nextProps.addTtutorStatus === "error" ) {
+      this.setState({ loader: false })
     }
   }
 
@@ -139,6 +152,8 @@ class TutorGetStart extends React.Component {
   }
 
   render() {
+    let { loader } = this.state;
+
     return (
       <MDBContainer>
         <MDBRow>
@@ -177,7 +192,16 @@ class TutorGetStart extends React.Component {
 
                 <form action="" method="post">
                   <MDBRow>
-                    {this.state.formActivePanel1 === 1 && (
+                    {
+                      loader ?
+                        <div style={{ marginTop: '35vh' }}>
+                          <HashLoader
+                            color={'#AD9101'}
+                            loading='true'
+                          />
+                        </div>
+                      :
+                      this.state.formActivePanel1 === 1 && (
                       <MDBCol md="12">
                         <h3 className="font-weight-bold pl-0 my-4">
                           <strong>Contact Information</strong>
@@ -420,6 +444,7 @@ class TutorGetStart extends React.Component {
                         </MDBBtn>
                       </MDBCol>
                     )}
+                  }
                   </MDBRow>
                 </form>
               </MDBCardBody>
@@ -431,4 +456,10 @@ class TutorGetStart extends React.Component {
   };
 }
 
-export default withRouter(connect(null, {addTutor})(TutorGetStart));
+const mapStateToProps = (state) => {
+  return {
+      addTtutorStatus: state.tutorDataReducer.addTtutorStatus
+  }
+}
+
+export default withRouter(connect(mapStateToProps, {addTutor})(TutorGetStart));

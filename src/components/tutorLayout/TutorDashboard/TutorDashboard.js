@@ -5,10 +5,6 @@ import Drawer from '../TutorDrawer/TutorDrawer';
 import TutorProfile from './components/TutorProfile';
 import { connect } from 'react-redux';
 
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import TuitionRequests from '../TuitionRequests/TuitionRequests';
-import Messenger from '../../Chat/Messenger';
-
 
 class TutorDashboard extends Component {
   state = {

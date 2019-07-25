@@ -23,14 +23,16 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { connect } from 'react-redux';
-import { sendTuitionpRroposal } from '../../redux/actions/TuitionProposalAction';
+import { sendProposal } from '../../redux/actions/TuitionProposalAction';
+import { HashLoader } from 'react-spinners';
 
 
 class TuitionRequest extends Component {
     state = {
         open: false,
         description: '',
-        fee: ''
+        fee: '',
+        loader: false
     }
 
     sendProposalHandler = () => {
@@ -63,6 +65,7 @@ class TuitionRequest extends Component {
         if(description === '' || fee === '') {
             alert('Both fields are required!')
         } else {
+            this.setState({ loader: true })
             let tutor = localStorage.getItem('authUser');
             tutor = JSON.parse(tutor);
 
@@ -73,8 +76,26 @@ class TuitionRequest extends Component {
                 description,
                 fee
             }
-            this.props.sendTuitionpRroposal(tuitionProposal);
-            this.setState({ open: false, description: '', fee: '' });
+            let token = JSON.parse(localStorage.getItem('auth'));
+
+            this.props.sendProposal({proposal: tuitionProposal, token});
+        }
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if(nextProps.sendProposalStatus === 'done') {
+            this.setState({
+                loader: false,
+                open: false, 
+                description: '', 
+                fee: ''
+            })
+        }
+
+        if(nextProps.sendProposalStatus === 'error') {
+            this.setState({
+                loader: false,
+            })
         }
     }
 
@@ -85,9 +106,19 @@ class TuitionRequest extends Component {
     }
 
     render() {
+        let { loader } = this.state;
         let tuition = this.props.tuition;
 
         return (
+            loader 
+            ?
+            <div style={{ marginTop: '35vh', marginLeft: '50vw' }}>
+                <HashLoader
+                    color={'#AD9101'}
+                    loading='true'
+                />
+            </div>
+            :
             <div style={{width: '100%', maxWidth: 860, margin: 'auto'}}>
                 <ExpansionPanel style={{marginTop: 8}}>
                     <ExpansionPanelSummary
@@ -207,4 +238,10 @@ class TuitionRequest extends Component {
     }
 }
 
-export default connect(null, { sendTuitionpRroposal })(TuitionRequest);
+const mapState = (store) => {
+    return {
+        sendProposalStatus: store.tuitionProposalReducer.sendProposalStatus
+    }
+}
+
+export default connect(mapState, { sendProposal })(TuitionRequest);

@@ -12,6 +12,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import { HashLoader } from 'react-spinners';
 
 class GetStarted extends Component {
     state= {
@@ -20,14 +21,15 @@ class GetStarted extends Component {
         sClass: '',
         subject1: '',
         subject2: '',
-        subject3: ''
+        subject3: '',
+        loader: false
     }
 
-    componentDidMount() {
-        this.setState({
-            labelWidth: ReactDOM.findDOMNode(this.InputLabelRef).offsetWidth,
-        })
-    }
+    // componentDidMount() {
+    //     this.setState({
+    //         labelWidth: ReactDOM.findDOMNode(this.InputLabelRef).offsetWidth,
+    //     })
+    // }
 
     onTextChange = (name, event) => {
         this.setState({
@@ -60,7 +62,7 @@ class GetStarted extends Component {
             if(city==='' || address==='' || sClass==='') {
                 alert('No empty field allowed!')
             } else {
-    
+                this.setState({ loader: true })
                 let student  = {
                     _id,
                     name,
@@ -74,17 +76,24 @@ class GetStarted extends Component {
                     subject2,
                     subject3,
                 }
-                
-                localStorage.clear();
-                localStorage.setItem('authStudent', JSON.stringify(student));
                 this.props.addStudent(student);
-
             }
         }
+    }
 
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.addStudentStatus === "done") {
+            this.setState({ loader: false })
+            this.props.history.push('/StudentLogin');
+        }
+
+        if (nextProps.addStudentStatus === "error") {
+            this.setState({ loader: false })
+        }
     }
 
     render() {
+        let { loader } = this.state;
 
         return (
             <MDBContainer>
@@ -92,6 +101,14 @@ class GetStarted extends Component {
                 <MDBCol md="6" style={{padding: 10, margin: "auto"}}>
                 <MDBCard>
                     <MDBCardBody>
+                    { loader ?
+                        <div style={{ marginTop: '5vh', marginLeft: '18vw' }}>
+                          <HashLoader
+                            color={'#AD9101'}
+                            loading='true'
+                          />
+                        </div>
+                      :
                     <form onSubmit={(event) => this.signUpHandler(event)}>
                         <div className="text-left"> 
                             <Link to="/StudentSignup"> 
@@ -189,6 +206,7 @@ class GetStarted extends Component {
                             </MDBBtn>
                         </div>
                     </form>
+                    }
                     </MDBCardBody>
                 </MDBCard>
                 </MDBCol>
@@ -198,4 +216,10 @@ class GetStarted extends Component {
     }
 };
 
-export default connect(null, { addStudent })(GetStarted);
+const mapState = (state) => {
+    return {
+        addStudentStatus: state.studentDataReducer.addStudentStatus
+    }
+}
+
+export default connect(mapState, { addStudent })(GetStarted);

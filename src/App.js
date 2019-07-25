@@ -10,6 +10,7 @@ import TutorGetStart from './components/tutorLayout/GetStart/GettingStarted';
 import TutorDashboard from './components/tutorLayout/TutorDashboard/TutorDashboard';
 import TuitionRequests from './components/myComponents/TuitionRequests/TuitionRequests';
 import StudentDashboard from './components/studentLayout/StudentDashboard/StudentDashboard';
+import MyProposals from './components/studentLayout/StudentDashboard/components/StudentProposals';
 
 import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
 import EditTutorProfile from './components/tutorLayout/TutorDashboard/components/EditTutorProfile';
@@ -92,6 +93,11 @@ function App() {
           exact
           path="/StudentTuitionRequests"
           component={MyTuitionRequests}
+        />  
+        <Route
+          exact
+          path="/StudentProposals"
+          component={MyProposals}
         />  
         <Route component={NoMatch} />
     </Switch>

@@ -2,6 +2,7 @@ import axios from 'axios';
 import { EndPoint } from '../../EndPoint/EndPoint';
 
 export const ADD_TUITION_REQ = "ADD_TUITION_REQ";
+export const ADD_TUITION_REQ_ERR = "ADD_TUITION_REQ_ERR";
 export const EDIT_TUITION_REQ = "EDIT_TUITION_REQ";
 export const GET_TUITION_REQ = "GET_TUITION_REQ";
 export const DELETE_TUITION_REQ = "DELETE_TUITION_REQ";
@@ -30,12 +31,27 @@ export function getAllTuitions() {
       };
 }
 
-export function addTuitionRequest(data) {
-    alert('Tuition request sent successfully!')
+const addTuitionSuc = (data) => {
+    alert('Tuition request sent successfully!');
     return {
         type: ADD_TUITION_REQ,
-        data: data
+        data
     }
+}
+
+const addTuitionFal = () => {
+    alert('Error occoured while adding tuition request!');
+    return {
+        type: ADD_TUITION_REQ_ERR
+    }
+} 
+
+export function addTuition(data) {
+    return(dispatch) => {
+        axios.post(EndPoint + "/tuition/addTuition", data.request, {headers: {'authorization': data.token}})
+          .then(res => dispatch(addTuitionSuc(res.data)))
+          .catch(err => dispatch(addTuitionFal(err)))
+      };
 }
 
 export function editTuitionRequest(data) {

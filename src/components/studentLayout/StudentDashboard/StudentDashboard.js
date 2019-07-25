@@ -11,6 +11,13 @@ class StudentDashboard extends Component {
     left: false
   }
 
+  componentWillMount() {
+    let auth = localStorage.getItem('userType');
+    if(auth !== 'student') {
+      this.props.history.push('/TutorLogin');
+    }
+  }
+
   toggleDrawer = (open) => event => {
     if (
       event.type === "keydown" &&

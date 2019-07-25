@@ -1,4 +1,4 @@
-import { ADD_TUITION_REQ, EDIT_TUITION_REQ, GET_ALL_TUITIONS, GET_ALL_TUITIONS_ERR, GET_TUITION_REQ, DELETE_TUITION_REQ, getAllTuitions } from '../actions/TuitionRequestAction';
+import { ADD_TUITION_REQ, ADD_TUITION_REQ_ERR, EDIT_TUITION_REQ, GET_ALL_TUITIONS, GET_ALL_TUITIONS_ERR, GET_TUITION_REQ, DELETE_TUITION_REQ, getAllTuitions } from '../actions/TuitionRequestAction';
 
 var initState = {
     tuitions: [
@@ -42,7 +42,8 @@ var initState = {
         //     timeTo: '05:30 PM'
         // }
     ],
-    getAllTuitionsStatus: 'not done'
+    getAllTuitionsStatus: 'not done',
+    addTuitionStatus: 'not done'
 };
 
 export default function tuitionRequestReducer(state = initState, action) {
@@ -53,7 +54,8 @@ export default function tuitionRequestReducer(state = initState, action) {
             return {
                 ...state,
                 tuitions,
-                getAllTuitionsStatus: 'done'
+                getAllTuitionsStatus: 'done',
+                addTuitionStatus: 'not done'
             }
         }
 
@@ -61,7 +63,8 @@ export default function tuitionRequestReducer(state = initState, action) {
         {
             return {
                 ...state,
-                getAllTuitionsStatus: 'error'
+                getAllTuitionsStatus: 'error',
+                addTuitionStatus: 'not done'
             }
         }
 
@@ -72,9 +75,20 @@ export default function tuitionRequestReducer(state = initState, action) {
             
             return {
                 ...state,
-                tuitions
+                tuitions,
+                addTuitionStatus: 'done',
+                getAllTuitionsStatus: 'not done',
             }
 
+        }
+
+        case ADD_TUITION_REQ_ERR:
+        {
+            return {
+                ...state,
+                addTuitionStatus: 'error',
+                getAllTuitionsStatus: 'not done',
+            }
         }
 
         case EDIT_TUITION_REQ:

@@ -3,11 +3,14 @@ import { MDBContainer, MDBFormInline, MDBRow, MDBCol, MDBInput, MDBBtn, MDBCard,
 import { Link } from 'react-router-dom';
 import BACK_ARROW from '../../../assets/icons/left-arrow.svg';
 import { connect } from 'react-redux';
+import { studentLogin } from '../../../redux/actions/auth';
+import { HashLoader } from 'react-spinners';
 
 class Login extends Component {
     state = {
         email: '',
         password: '',
+        loader: false
     }
 
     componentWillMount() {
@@ -32,71 +35,88 @@ class Login extends Component {
         if(email === "" || password === "") {
             alert("No empty field allowed!");
         } else {
-            let students = this.props.students;
-            students = students.filter( t => t.email == email && t.password == password );
-            if(students.length > 0) {
-                localStorage.clear();
-                localStorage.setItem("authStudent", JSON.stringify(students[0]));
-                this.props.history.push("/StudentDashboard");
-            } else {
-                alert("Incorrect credentials!")
-            }
+            this.props.studentLogin({ email, password });
+            this.setState({ loader: true })
+        }
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if(nextProps.studentLoginStatus === 'done') {
+            this.setState({ loader: false })
+            this.props.history.push('/StudentDashboard');
+        } 
+
+        if(nextProps.studentLoginStatus === 'error') {
+            this.setState( { loader: false } );
+            alert('Error logging in!');
         }
     }
 
 
     render() {
+        let { loader } = this.state;
+
         return (
             <MDBContainer>
             <MDBRow>
-                <MDBCol md="6" className="align-middle" style={{padding: "auto", margin: "auto", marginTop: "5.5vw"}}>
-                <MDBCard>
-                    <MDBCardBody>
-                    <form onSubmit={(event) => this.loginHandler(event)}>
-                        <div className="text-left"> 
-                            <Link to="/"> 
-                                <img src={BACK_ARROW} alt="Back" style={{height: 20, width: 25, marginLeft: 40, cursor: 'pointer'}}/> 
-                            </Link> 
+                {
+                    loader ?
+                        <div style={{ marginTop: '35vh', marginLeft: '40vw' }}>
+                            <HashLoader
+                                color={'#AD9101'}
+                                loading='true'
+                            />
                         </div>
-                        <p className="h4 text-center py-4">Login</p>
-                        <div className="grey-text" style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
-                            <div style={{textAlign: 'left'}}>
-                                
-                                <MDBInput
-                                    label="Your email"
-                                    icon="envelope"
-                                    name='email'
-                                    group
-                                    type="email"
-                                    validate
-                                    error="wrong"
-                                    success="right"
-                                    onChange={(event) => this.onTextChange(event)}
-                                />
-                                <MDBInput
-                                    label="Your password"
-                                    icon="lock"
-                                    name='password'
-                                    group
-                                    type="password"
-                                    validate
-                                    onChange={(event) => this.onTextChange(event)}
-                                />
+                    :
+                    <MDBCol md="6" className="align-middle" style={{padding: "auto", margin: "auto", marginTop: "5.5vw"}}>
+                        <MDBCard>
+                            <MDBCardBody>
+                            <form onSubmit={(event) => this.loginHandler(event)}>
+                                <div className="text-left"> 
+                                    <Link to="/"> 
+                                        <img src={BACK_ARROW} alt="Back" style={{height: 20, width: 25, marginLeft: 40, cursor: 'pointer'}}/> 
+                                    </Link> 
+                                </div>
+                                <p className="h4 text-center py-4">Login</p>
+                                <div className="grey-text" style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
+                                    <div style={{textAlign: 'left'}}>
+                                        
+                                        <MDBInput
+                                            label="Your email"
+                                            icon="envelope"
+                                            name='email'
+                                            group
+                                            type="email"
+                                            validate
+                                            error="wrong"
+                                            success="right"
+                                            onChange={(event) => this.onTextChange(event)}
+                                        />
+                                        <MDBInput
+                                            label="Your password"
+                                            icon="lock"
+                                            name='password'
+                                            group
+                                            type="password"
+                                            validate
+                                            onChange={(event) => this.onTextChange(event)}
+                                        />
 
-                            </div>
-                        </div>
-                        <div className="text-center py-4 mt-3">
-                            <MDBBtn color="cyan" type="submit">
-                                Login
-                            </MDBBtn>
-                            <div style={{marginTop: 10, cursor: 'pointer'}}>
-                                <Link to="/StudentSignup">Not member? Signup!</Link>
-                            </div>
-                        </div>
-                    </form>
-                    </MDBCardBody>
-                </MDBCard>
-                </MDBCol>
+                                    </div>
+                                </div>
+                                <div className="text-center py-4 mt-3">
+                                    <MDBBtn color="cyan" type="submit">
+                                        Login
+                                    </MDBBtn>
+                                    <div style={{marginTop: 10, cursor: 'pointer'}}>
+                                        <Link to="/StudentSignup">Not member? Signup!</Link>
+                                    </div>
+                                </div>
+                            </form>
+                            </MDBCardBody>
+                        </MDBCard>
+                    </MDBCol>
+                }   
             </MDBRow>
             </MDBContainer>
         );
@@ -105,8 +125,8 @@ class Login extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        students: state.studentDataReducer.students
+        studentLoginStatus: state.authReducer.studentLoginStatus
     }
 }
 
-export default connect(mapStateToProps)(Login);
+export default connect(mapStateToProps, { studentLogin })(Login);
