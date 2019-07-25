@@ -137,50 +137,50 @@ class TuitionRequest extends Component {
 
                     </ExpansionPanelSummary>
                     <ExpansionPanelDetails style={{alignItems: 'center'}}>
-                    <div style={{margin: 'auto'}}>
-                                    <div className="card-body" style={{ marginTop: -80 }}>
-                                        <div style={{width: '100%', maxWidth: 860, margin: 'auto'}}>
-                                            <Table>
-                                                <TableBody>
-                                                    <TableRow key={0}>
-                                                        <TableCell></TableCell>
-                                                        <TableCell></TableCell>
-                                                    </TableRow>
-                                                    <TableRow key={1}>
-                                                        <TableCell align="left">
-                                                            <b>Class</b>
-                                                        </TableCell>
-                                                        <TableCell align="left">{tuition.trClass}</TableCell>
-                                                    </TableRow>
-                                                    <TableRow key={2}>
-                                                        <TableCell align="left">
-                                                            <b>Subject</b>
-                                                        </TableCell>
-                                                        <TableCell align="left">{tuition.trSubject}</TableCell>
-                                                    </TableRow>
-                                                    <TableRow key={4}>
-                                                        <TableCell>
-                                                            <b>Timing</b>
-                                                        </TableCell>
-                                                        <TableCell align="left">{tuition.timeFrom + " - " + tuition.timeTo}</TableCell>
-                                                    </TableRow>
-                                                    <TableRow key={5}>
-                                                        <TableCell>
-                                                            <b>Address</b>
-                                                        </TableCell>
-                                                        <TableCell align="left">{tuition.trAddress}</TableCell>
-                                                    </TableRow>
-                                                    <TableRow key={3}>
-                                                        <TableCell>
-                                                            <b>Posted At</b>
-                                                        </TableCell>
-                                                        <TableCell align="left">{tuition.trPostedAt}</TableCell>
-                                                    </TableRow>
-                                                </TableBody>
-                                            </Table>
-                                        </div>
+                            <div style={{ margin: 'auto' }}>
+                                <div className="card-body" style={{ marginTop: -80 }}>
+                                    <div style={{ width: '100%', maxWidth: 860, margin: 'auto' }}>
+                                        <Table>
+                                            <TableBody>
+                                                <TableRow key={0}>
+                                                    <TableCell></TableCell>
+                                                    <TableCell></TableCell>
+                                                </TableRow>
+                                                <TableRow key={1}>
+                                                    <TableCell align="left">
+                                                        <b>Class</b>
+                                                    </TableCell>
+                                                    <TableCell align="left">{tuition.trClass}</TableCell>
+                                                </TableRow>
+                                                <TableRow key={2}>
+                                                    <TableCell align="left">
+                                                        <b>Subject</b>
+                                                    </TableCell>
+                                                    <TableCell align="left">{tuition.trSubject}</TableCell>
+                                                </TableRow>
+                                                <TableRow key={4}>
+                                                    <TableCell>
+                                                        <b>Timing</b>
+                                                    </TableCell>
+                                                    <TableCell align="left">{tuition.timeFrom + " - " + tuition.timeTo}</TableCell>
+                                                </TableRow>
+                                                <TableRow key={5}>
+                                                    <TableCell>
+                                                        <b>Address</b>
+                                                    </TableCell>
+                                                    <TableCell align="left">{tuition.trAddress}</TableCell>
+                                                </TableRow>
+                                                <TableRow key={3}>
+                                                    <TableCell>
+                                                        <b>Posted At</b>
+                                                    </TableCell>
+                                                    <TableCell align="left">{tuition.trPostedAt}</TableCell>
+                                                </TableRow>
+                                            </TableBody>
+                                        </Table>
                                     </div>
                                 </div>
+                            </div>
                     </ExpansionPanelDetails>
                     <Divider style={{marginTop: -45}}/>
                     <ExpansionPanelActions>
